@@ -19,7 +19,7 @@ public class RegionService {
     }
 
     public Optional<Region> getRegion(String regionName) {
-        return regionRepository.findByName(regionName);
+        return regionRepository.findDistinctByName(regionName);
     }
 
     public Long getTotalDeaths() {

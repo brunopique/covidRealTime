@@ -32,7 +32,7 @@ class CovidRealTimeApplicationTests {
 
     @Test
     void should_return_covid_daily() {
-        System.out.println(" dailyCovidDataRepository.findByName(\"Albania\"): " +  regionRepository.findByName("Albania"));
+        System.out.println(" dailyCovidDataRepository.findByName(\"Albania\"): " +  regionRepository.findDistinctByName("Albania"));
     }
 
 }

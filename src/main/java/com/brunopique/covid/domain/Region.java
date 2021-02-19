@@ -1,5 +1,7 @@
 package com.brunopique.covid.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -61,6 +63,7 @@ public class Region {
         return "Region{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", dailyCovidData=" + dailyCovidData +
                 '}';
     }
 }

@@ -72,7 +72,7 @@ public class CovidDataService {
                 CovidData currentRecord = new CovidData(LocalDate.now().minusDays(1), combinedKey, confirmed, deaths, recovered, active, incidentRate, caseFatalityRatio);
 
                 // If region exists get it from repo, otherwise create it and save it
-                region = regionRepo.findByName(regionName).orElseGet(() -> {
+                region = regionRepo.findDistinctByName(regionName).orElseGet(() -> {
                     Region newRegion = new Region(regionName);
                     regionRepo.save(newRegion);
                     return newRegion;

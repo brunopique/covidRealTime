@@ -13,6 +13,6 @@ public interface RegionRepository extends JpaRepository<Region, Long> {
 
     // List<Region> findAllByCountry_Name(String regionName);
 
-    Optional<Region> findByName(String regionProvinceState);
+    Optional<Region> findDistinctByName(String regionName);
 
 }

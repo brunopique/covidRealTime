@@ -1,5 +1,7 @@
 package com.brunopique.covid.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -49,6 +51,7 @@ public class CovidData {
     }
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
     public Region getRegion() {
         return region;
     }
