@@ -19,10 +19,18 @@ public class RegionService {
     }
 
     public Optional<Region> getRegion(String regionName) {
-        return regionRepository.findDistinctByName(regionName);
+        return regionRepository.findByName(regionName);
     }
 
     public Long getTotalDeaths() {
         return 1L;
+    }
+
+    public Optional<Region> findByName(String regionName) {
+        return regionRepository.findByName(regionName);
+    }
+
+    public Region save(Region region) {
+        return regionRepository.save(region);
     }
 }

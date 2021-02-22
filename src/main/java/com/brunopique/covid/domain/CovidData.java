@@ -8,7 +8,6 @@ import java.time.LocalDate;
 @Entity
 public class CovidData {
     private Long id;
-    private String combinedKey;
     private LocalDate date;
     private long confirmed;
     private long deaths;
@@ -16,14 +15,13 @@ public class CovidData {
     private long active;
     private double incidentRate;
     private double caseFatalityRatio;
-    private Region region;
+    private Subregion subregion;
 
     public CovidData() {
 
     }
 
-    public CovidData(LocalDate date, String combinedKey, long confirmed, long deaths, long recovered, long active, double incidentRate, double caseFatalityRatio) {
-        this.combinedKey = combinedKey;
+    public CovidData(LocalDate date, long confirmed, long deaths, long recovered, long active, double incidentRate, double caseFatalityRatio) {
         this.date = date;
         this.confirmed = confirmed;
         this.deaths = deaths;
@@ -42,22 +40,14 @@ public class CovidData {
         this.id = id;
     }
 
-    public String getCombinedKey() {
-        return combinedKey;
-    }
-
-    public void setCombinedKey(String combinedKey) {
-        this.combinedKey = combinedKey;
-    }
-
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
-    public Region getRegion() {
-        return region;
+    public Subregion getSubregion() {
+        return subregion;
     }
 
-    public void setRegion(Region region) {
-        this.region = region;
+    public void setSubregion(Subregion region) {
+        this.subregion = region;
     }
 
     public LocalDate getDate() {
@@ -116,19 +106,4 @@ public class CovidData {
         this.caseFatalityRatio = caseFatalityRatio;
     }
 
-    @Override
-    public String toString() {
-        return "CovidData{" +
-                "id=" + id +
-                ", combinedKey='" + combinedKey + '\'' +
-                ", date=" + date +
-                ", confirmed=" + confirmed +
-                ", deaths=" + deaths +
-                ", recovered=" + recovered +
-                ", active=" + active +
-                ", incidentRate=" + incidentRate +
-                ", caseFatalityRatio=" + caseFatalityRatio +
-                ", dailyCovidData=" + region +
-                '}';
-    }
 }

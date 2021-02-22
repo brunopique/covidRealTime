@@ -10,7 +10,7 @@ public class Region {
 
     private Long id;
     private String name;
-    private Set<CovidData> dailyCovidData = new HashSet<>();
+    private Set<Subregion> subregions = new HashSet<>();
 
     public Region() {}
 
@@ -27,14 +27,13 @@ public class Region {
         this.id = id;
     }
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "region_id")
-    public Set<CovidData> getDailyCovidData() {
-        return dailyCovidData;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "region")
+    public Set<Subregion> getSubregions() {
+        return subregions;
     }
 
-    public void setDailyCovidData(Set<CovidData> covidData) {
-        this.dailyCovidData = covidData;
+    public void setSubregions(Set<Subregion> covidData) {
+        this.subregions = covidData;
     }
 
     public String getName() {
@@ -63,7 +62,7 @@ public class Region {
         return "Region{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", dailyCovidData=" + dailyCovidData +
+                ", subregions=" + subregions +
                 '}';
     }
 }
