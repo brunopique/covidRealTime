@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 class CovidRealTimeApplicationTests {
 
     @Autowired
-    RegionRepository regionRepository;
+    private RegionRepository regionRepository;
 
     @Test
     void contextLoads() {

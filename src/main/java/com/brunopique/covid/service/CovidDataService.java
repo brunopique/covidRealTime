@@ -15,6 +15,8 @@ import java.io.*;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @Service
@@ -36,9 +38,8 @@ public class CovidDataService {
 
         // TODO: check whether to keep day minus 1
         // If date already exists in repo return false and don't parse
-        if (covidDataRepo.findFirstByDate(LocalDate.now().minusDays(1)) != null) {
+        if (covidDataRepo.findFirstByDate(LocalDate.now().minusDays(1)) != null)
             return false;
-        }
 
         Region region;
         Subregion subregion;
@@ -49,20 +50,14 @@ public class CovidDataService {
         while (!fileDownload.isDone()) ;
         //System.out.println("Downloading file...");
 
-        Reader in;
-        Iterable<CSVRecord> records = null;
-        try {
-            in = new FileReader("./covid_19_daily_reports/" + todaysFileName);
-            records = CSVFormat.DEFAULT.withHeader().parse(in);
-
+        try (Reader in = new FileReader("./covid_19_daily_reports/" + todaysFileName)) {
+            Iterable<CSVRecord> records = CSVFormat.DEFAULT.withHeader().parse(in);
             for (CSVRecord record : records) {
                 csvRecord = record;
-
-                // TODO: space-complexity, check if I can avoid further checks by saving info here (eg. regions)
-
                 // Tried using optionals but wouldn't work with empty fields
                 String regionName = record.get("Country_Region");
                 String subregionName = record.get("Province_State").isEmpty() ? regionName : record.get("Province_State");
+                String combinedNames = record.get("Combined_Key").isEmpty() ? regionName : record.get("Combined_Key");
                 long confirmed = Long.parseLong(getRecordValueOrElseZero("Confirmed"));
                 long deaths = Long.parseLong(getRecordValueOrElseZero("Deaths"));
                 long recovered = Long.parseLong(getRecordValueOrElseZero("Recovered"));
@@ -70,7 +65,7 @@ public class CovidDataService {
                 double incidentRate = Double.parseDouble(getRecordValueOrElseZero("Incident_Rate"));
                 double caseFatalityRatio = Double.parseDouble(getRecordValueOrElseZero("Case_Fatality_Ratio"));
 
-                CovidData currentRecord = new CovidData(LocalDate.now().minusDays(1), confirmed, deaths, recovered, active, incidentRate, caseFatalityRatio);
+                CovidData currentRecord = new CovidData(LocalDate.now().minusDays(1), combinedNames, confirmed, deaths, recovered, active, incidentRate, caseFatalityRatio);
 
                 // If region exists get it from repo, otherwise create it and save it
                 region = regionService.findByName(regionName).orElseGet(() -> {
@@ -90,12 +85,11 @@ public class CovidDataService {
 
                 subregionService.save(subregion);
 
-
                 currentRecord.setSubregion(subregion);
 
                 covidDataRepo.save(currentRecord);
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return true;
@@ -113,20 +107,34 @@ public class CovidDataService {
             return true;
         } catch (FileNotFoundException e) {
             System.out.println("Today's file hasn't been uploaded yet!");
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
 
-    // TODO: IMPLEMENT LOGIC TO CHECK PARSING
-//    private boolean fileParsedCorrectly() {
-//        System.out.println("covidDataRepo.count() > 0" + covidDataRepo.count());
-//        return covidDataRepo.count() > 0;
-//    }
-
     private String getRecordValueOrElseZero(String header) {
         String record = csvRecord.get(header);
         return record.isEmpty() ? "0" : record;
+    }
+
+    public CovidData getDayWithMostDeaths() {
+        return covidDataRepo.getSubregionWithMostDeaths();
+    }
+
+    public CovidData getDayWithMostDeathsForSubregion(String subregion) {
+        return covidDataRepo.findFirstBySubregion_NameOrderByDeathsDesc(subregion);
+    }
+
+    public CovidData findAllByOrderByDeathsDesc() {
+        return covidDataRepo.findFirstByOrderByDeathsDesc();
+    }
+
+    public List<CovidData> findAllBySubregion_Region_NameOrderByDeathsDesc(String name) {
+        return covidDataRepo.findAllBySubregion_Region_NameOrderByDeathsDesc(name);
+    }
+
+    public Long findTotalDeathsByRegion(String regionName) {
+        return covidDataRepo.findTotalDeathsByRegion(regionName).orElse(0L);
     }
 }

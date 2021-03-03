@@ -74,7 +74,6 @@ public class Subregion {
         return "Subregion{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", region=" + region +
                 '}';
     }
 }

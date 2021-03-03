@@ -12,7 +12,9 @@ import java.util.Optional;
 public class RegionService {
 
     @Autowired
-    RegionRepository regionRepository;
+    private RegionRepository regionRepository;
+    @Autowired
+    private CovidDataService covidDataService;
 
     public List<Region> getAllRegions() {
         return regionRepository.findAll();
@@ -22,15 +24,15 @@ public class RegionService {
         return regionRepository.findByName(regionName);
     }
 
-    public Long getTotalDeaths() {
-        return 1L;
-    }
-
     public Optional<Region> findByName(String regionName) {
         return regionRepository.findByName(regionName);
     }
 
     public Region save(Region region) {
         return regionRepository.save(region);
+    }
+
+    public Long findTotalDeathsByRegion(String regionName) {
+        return covidDataService.findTotalDeathsByRegion(regionName);
     }
 }

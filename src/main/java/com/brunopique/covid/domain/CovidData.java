@@ -9,6 +9,7 @@ import java.time.LocalDate;
 public class CovidData {
     private Long id;
     private LocalDate date;
+    private String regionAndCountry;
     private long confirmed;
     private long deaths;
     private long recovered;
@@ -21,8 +22,9 @@ public class CovidData {
 
     }
 
-    public CovidData(LocalDate date, long confirmed, long deaths, long recovered, long active, double incidentRate, double caseFatalityRatio) {
+    public CovidData(LocalDate date, String regionAndCountry, long confirmed, long deaths, long recovered, long active, double incidentRate, double caseFatalityRatio) {
         this.date = date;
+        this.regionAndCountry = regionAndCountry;
         this.confirmed = confirmed;
         this.deaths = deaths;
         this.recovered = recovered;
@@ -56,6 +58,14 @@ public class CovidData {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public String getRegionAndCountry() {
+        return regionAndCountry;
+    }
+
+    public void setRegionAndCountry(String combinedNames) {
+        this.regionAndCountry = combinedNames;
     }
 
     public long getConfirmed() {
