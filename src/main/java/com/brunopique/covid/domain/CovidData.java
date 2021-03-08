@@ -12,7 +12,7 @@ public class CovidData {
     private String regionAndCountry;
     private long confirmed;
     private long deaths;
-    private long recovered;
+    private double recovered;
     private long active;
     private double incidentRate;
     private double caseFatalityRatio;
@@ -22,7 +22,7 @@ public class CovidData {
 
     }
 
-    public CovidData(LocalDate date, String regionAndCountry, long confirmed, long deaths, long recovered, long active, double incidentRate, double caseFatalityRatio) {
+    public CovidData(LocalDate date, String regionAndCountry, long confirmed, long deaths, double recovered, long active, double incidentRate, double caseFatalityRatio) {
         this.date = date;
         this.regionAndCountry = regionAndCountry;
         this.confirmed = confirmed;
@@ -84,11 +84,11 @@ public class CovidData {
         this.deaths = deaths;
     }
 
-    public long getRecovered() {
+    public double getRecovered() {
         return recovered;
     }
 
-    public void setRecovered(long recovered) {
+    public void setRecovered(double recovered) {
         this.recovered = recovered;
     }
 

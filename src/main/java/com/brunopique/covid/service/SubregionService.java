@@ -29,7 +29,7 @@ public class SubregionService {
     }
 
 //    public Subregion findByMostDeaths() {
-//        return covidDataService.findFirstByOrderByDeathsDesc().getSubregion();
+//        return covidDataService.findFirstByOrderByDeathsDesc() ;
 //    }
 
 }

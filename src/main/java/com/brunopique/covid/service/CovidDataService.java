@@ -56,7 +56,7 @@ public class CovidDataService {
                 String combinedNames = record.get("Combined_Key").isEmpty() ? regionName : record.get("Combined_Key");
                 long confirmed = Long.parseLong(getRecordValueOrElseZero("Confirmed"));
                 long deaths = Long.parseLong(getRecordValueOrElseZero("Deaths"));
-                long recovered = Long.parseLong(getRecordValueOrElseZero("Recovered"));
+                double recovered = Double.parseDouble(getRecordValueOrElseZero("Recovered"));
                 long active = Long.parseLong(getRecordValueOrElseZero("Active"));
                 double incidentRate = Double.parseDouble(getRecordValueOrElseZero("Incident_Rate"));
                 double caseFatalityRatio = Double.parseDouble(getRecordValueOrElseZero("Case_Fatality_Ratio"));
@@ -109,9 +109,9 @@ public class CovidDataService {
         return covidDataRepo.findFirstBySubregion_NameOrderByDeathsDesc(subregion).orElse(new CovidData());
     }
 
-//    public CovidData findFirstByOrderByDeathsDesc() {
-//        return covidDataRepo.findFirstByOrderByDeathsDesc().orElse(new CovidData());
-//    }
+    public CovidData findFirstByOrderByDeathsDesc() {
+        return covidDataRepo.findFirstByOrderByDeathsDesc().orElse(new CovidData());
+    }
 
     public Long findTotalDeathsByRegion(String regionName) {
         return covidDataRepo.findTotalDeathsByRegion(regionName).orElse(0L);
