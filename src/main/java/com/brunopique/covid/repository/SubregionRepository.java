@@ -14,6 +14,6 @@ public interface SubregionRepository extends JpaRepository<Subregion, Long> {
 
     Optional<Subregion> findByName(String subregionName);
 
-    //Optional<List<Subregion>> findByRegion_Name(String regionName);
+    Optional<List<Subregion>> findByRegion_Name(String regionName);
 
 }

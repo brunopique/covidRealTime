@@ -116,4 +116,18 @@ public class CovidData {
         this.caseFatalityRatio = caseFatalityRatio;
     }
 
+    @Override
+    public String toString() {
+        return "CovidData{" +
+                "id=" + id +
+                ", date=" + date +
+                ", regionAndCountry='" + regionAndCountry + '\'' +
+                ", confirmed=" + confirmed +
+                ", deaths=" + deaths +
+                ", recovered=" + recovered +
+                ", active=" + active +
+                ", incidentRate=" + incidentRate +
+                ", caseFatalityRatio=" + caseFatalityRatio +
+                '}';
+    }
 }

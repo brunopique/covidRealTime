@@ -15,8 +15,6 @@ import java.io.*;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @Service
@@ -30,31 +28,29 @@ public class CovidDataService {
     private SubregionService subregionService;
 
     private CSVRecord csvRecord;
-    private String todaysFileName;
+    private String yesterdaysFileName;
 
     // If the server were constantly running, this method would not be called on
     // 'ApplicationReadyEvent' but on a scheduled time (using '@EnableScheduling')
     public boolean parseData() {
 
-        // TODO: check whether to keep day minus 1
         // If date already exists in repo return false and don't parse
-        if (covidDataRepo.findFirstByDate(LocalDate.now().minusDays(1)) != null)
+        if (covidDataRepo.findFirstByDate(LocalDate.now().minusDays(1)).isPresent())
             return false;
 
         Region region;
         Subregion subregion;
 
-        updateTodaysFileName();
+        updateYesterdaysFileName();
 
-        CompletableFuture<Boolean> fileDownload = CompletableFuture.supplyAsync(() -> downloadTodaysFile(todaysFileName));
-        while (!fileDownload.isDone()) ;
-        //System.out.println("Downloading file...");
+        CompletableFuture<Boolean> fileDownload = CompletableFuture.supplyAsync(() -> downloadYesterdaysFile(yesterdaysFileName));
+        while (!fileDownload.isDone())
+            System.out.print("Downloading file... ");
 
-        try (Reader in = new FileReader("./covid_19_daily_reports/" + todaysFileName)) {
+        try (Reader in = new FileReader("./covid_19_daily_reports/" + yesterdaysFileName)) {
             Iterable<CSVRecord> records = CSVFormat.DEFAULT.withHeader().parse(in);
             for (CSVRecord record : records) {
                 csvRecord = record;
-                // Tried using optionals but wouldn't work with empty fields
                 String regionName = record.get("Country_Region");
                 String subregionName = record.get("Province_State").isEmpty() ? regionName : record.get("Province_State");
                 String combinedNames = record.get("Combined_Key").isEmpty() ? regionName : record.get("Combined_Key");
@@ -64,29 +60,23 @@ public class CovidDataService {
                 long active = Long.parseLong(getRecordValueOrElseZero("Active"));
                 double incidentRate = Double.parseDouble(getRecordValueOrElseZero("Incident_Rate"));
                 double caseFatalityRatio = Double.parseDouble(getRecordValueOrElseZero("Case_Fatality_Ratio"));
-
+                // Instantiate current record
                 CovidData currentRecord = new CovidData(LocalDate.now().minusDays(1), combinedNames, confirmed, deaths, recovered, active, incidentRate, caseFatalityRatio);
-
                 // If region exists get it from repo, otherwise create it and save it
                 region = regionService.findByName(regionName).orElseGet(() -> {
                     Region newRegion = new Region(regionName);
                     regionService.save(newRegion);
                     return newRegion;
                 });
-
                 // If subregion exists get it from repo, otherwise create it and save it
-                subregion = subregionService.findByName(subregionName).orElseGet(() -> {
-                    Subregion newSubregion = new Subregion(subregionName);
-                    subregionService.save(newSubregion);
-                    return newSubregion;
-                });
-
+                subregion = subregionService.findByName(subregionName).orElseGet(() -> new Subregion(subregionName));
+                // Add Region to Subregion
                 subregion.setRegion(region);
-
+                // Save subregion to repo
                 subregionService.save(subregion);
-
+                // Add subregion to current covid data record
                 currentRecord.setSubregion(subregion);
-
+                // Save current record to covid data repo
                 covidDataRepo.save(currentRecord);
             }
         } catch (Exception e) {
@@ -95,22 +85,19 @@ public class CovidDataService {
         return true;
     }
 
-    private void updateTodaysFileName() {
-        // TODO: set right amount of minusDays
-        todaysFileName = DateTimeFormatter.ofPattern("MM-dd-yyyy").format(LocalDate.now().minusDays(1)) + ".csv";
+    private void updateYesterdaysFileName() {
+        yesterdaysFileName = DateTimeFormatter.ofPattern("MM-dd-yyyy").format(LocalDate.now().minusDays(1)) + ".csv";
     }
 
-    private Boolean downloadTodaysFile(String fileName) {
+    private Boolean downloadYesterdaysFile(String fileName) {
         try {
             FileUtils.copyURLToFile(new URL("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/" + fileName),
                     new File("./covid_19_daily_reports/" + fileName));
             return true;
-        } catch (FileNotFoundException e) {
-            System.out.println("Today's file hasn't been uploaded yet!");
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
-        return false;
     }
 
     private String getRecordValueOrElseZero(String header) {
@@ -118,21 +105,13 @@ public class CovidDataService {
         return record.isEmpty() ? "0" : record;
     }
 
-    public CovidData getDayWithMostDeaths() {
-        return covidDataRepo.getSubregionWithMostDeaths();
-    }
-
     public CovidData getDayWithMostDeathsForSubregion(String subregion) {
-        return covidDataRepo.findFirstBySubregion_NameOrderByDeathsDesc(subregion);
+        return covidDataRepo.findFirstBySubregion_NameOrderByDeathsDesc(subregion).orElse(new CovidData());
     }
 
-    public CovidData findAllByOrderByDeathsDesc() {
-        return covidDataRepo.findFirstByOrderByDeathsDesc();
-    }
-
-    public List<CovidData> findAllBySubregion_Region_NameOrderByDeathsDesc(String name) {
-        return covidDataRepo.findAllBySubregion_Region_NameOrderByDeathsDesc(name);
-    }
+//    public CovidData findFirstByOrderByDeathsDesc() {
+//        return covidDataRepo.findFirstByOrderByDeathsDesc().orElse(new CovidData());
+//    }
 
     public Long findTotalDeathsByRegion(String regionName) {
         return covidDataRepo.findTotalDeathsByRegion(regionName).orElse(0L);

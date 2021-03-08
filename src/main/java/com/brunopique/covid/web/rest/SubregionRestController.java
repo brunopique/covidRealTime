@@ -1,6 +1,6 @@
 package com.brunopique.covid.web.rest;
 
-import com.brunopique.covid.domain.Region;
+import com.brunopique.covid.domain.CovidData;
 import com.brunopique.covid.domain.Subregion;
 import com.brunopique.covid.service.SubregionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +16,10 @@ public class SubregionRestController {
     @Autowired
     SubregionService subregionService;
 
-    @GetMapping("/allregions")
+    // TODO: should I filter by date?
+    @GetMapping("")
     @ResponseBody
-    public ResponseEntity<List<Subregion>> getAllRegions() {
+    public ResponseEntity<List<Subregion>> getAllSubregions() {
         List<Subregion> subregions = subregionService.getAllSubregions();
         if (subregions == null)
             return ResponseEntity.notFound().build();
@@ -30,14 +31,14 @@ public class SubregionRestController {
     @ResponseBody
     public ResponseEntity<Subregion> getRegion(@PathVariable String subregionName) {
         Subregion subregion = subregionService.findByName(subregionName).orElse(new Subregion());
-        if (subregion == null)
-            return ResponseEntity.notFound().build();
-        else
-            return ResponseEntity.ok(subregion);
+        return ResponseEntity.ok(subregion);
     }
 
-    @GetMapping("/mostdeaths")
-    public Subregion getSubegionWithMostDeaths() {
-        return subregionService.getSubregionWithMostDeaths();
-    }
+//    @GetMapping("/mostdeaths")
+//    @ResponseBody
+//    public ResponseEntity<Subregion> getSubRegion() {
+//        Subregion subregion = subregionService.findByMostDeaths();
+//
+//        return ResponseEntity.ok(subregion);
+//    }
 }

@@ -12,33 +12,26 @@ import java.util.Optional;
 @Repository
 public interface CovidDataRepository extends JpaRepository<CovidData, String> {
 
-    CovidData findFirstByDate(LocalDate date);
+    Optional<CovidData> findFirstByDate(LocalDate date);
 
-//    @Query("SELECT MAX(cd.deaths) FROM CovidData cd")
-//    Long getDayWithMostDeaths();
+    Optional<List<CovidData>> findAllByDate(LocalDate date);
 
-    @Query("SELECT cd.id, cd.active, cd.caseFatalityRatio, cd.confirmed, cd.date," +
-            " MAX(cd.deaths) as deaths," +
-            " cd.incidentRate, cd.recovered, cd.subregion.id " +
-            "FROM CovidData cd")
-    CovidData getSubregionWithMostDeaths();
+    Optional<CovidData> findFirstBySubregion_NameOrderByDeathsDesc(String name);
 
-    CovidData findByDeaths(long deaths);
+    @Query(value = "select cd.id, cd.active, cd.case_fatality_ratio, cd.confirmed, cd.date, cd.deaths, cd.incident_rate, cd.recovered, cd.region_and_country, cd.recovered, cd.subregion_id from covid_data cd " +
+            "left join subregion s on cd.subregion_id = s.id " +
+            "order by cd.deaths desc limit 1", // TODO: should i filter by cd.date here?
+            nativeQuery = true)
+    Optional<CovidData> findFirstByOrderByDeathsDesc();
 
-    CovidData findFirstBySubregion_NameOrderByDeathsDesc(String name);
+    Optional<CovidData> findFirstByOrderByDeathsDescSubregion_NameDesc();
 
-    CovidData findFirstByOrderByDeathsDesc();
-
-    List<CovidData> findAllBySubregion_Region_NameOrderByDeathsDesc(String name);
-
+    Optional<CovidData> findAllByOrderByDeathsDesc();
 
     @Query(value = "SELECT SUM(cd.deaths) FROM covid_data cd " +
             "LEFT JOIN subregion s ON cd.subregion_id = s.id " +
             "LEFT JOIN region r ON s.region_id = r.id " +
             "WHERE cd.date = CURDATE() - INTERVAL 1 DAY AND r.name = :regionName",
-    nativeQuery = true)
+            nativeQuery = true)
     Optional<Long> findTotalDeathsByRegion(String regionName);
-
-    // TODO: QUERY find X (var) number of top by death etc.
-
 }
