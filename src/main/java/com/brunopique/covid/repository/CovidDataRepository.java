@@ -18,9 +18,10 @@ public interface CovidDataRepository extends JpaRepository<CovidData, String> {
 
     Optional<CovidData> findFirstBySubregion_NameOrderByDeathsDesc(String name);
 
-    @Query(value = "select cd.id, cd.active, cd.case_fatality_ratio, cd.confirmed, cd.date, cd.deaths, cd.incident_rate, cd.recovered, cd.region_and_country, cd.recovered, cd.subregion_id from covid_data cd " +
-            "left join subregion s on cd.subregion_id = s.id " +
-            "order by cd.deaths desc limit 1", // TODO: should i filter by cd.date here?
+    @Query(value = "SELECT cd.id, cd.active, cd.case_fatality_ratio, cd.confirmed, cd.date, cd.deaths, cd.incident_rate, cd.recovered, cd.region_and_country, cd.recovered, cd.subregion_id from covid_data cd " +
+            "LEFT JOIN subregion s ON cd.subregion_id = s.id " +
+            "WHERE cd.date = CURDATE() - INTERVAL 1 DAY " +
+            "ORDER BY cd.deaths DESC limit 1",
             nativeQuery = true)
     Optional<CovidData> findFirstByOrderByDeathsDesc();
 

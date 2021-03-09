@@ -41,11 +41,6 @@ class CovidRealTimeApplicationTests {
         System.out.println(" dailyCovidDataRepository.findByName(\"Albania\"): " +  regionRepository.findByName("Albania"));
     }
 
-    @Test
-    void should_lazily_fetch_subregion() {
-        Subregion subregion = covidDataRepository.findFirstByOrderByDeathsDescSubregion_NameDesc().get().getSubregion();
-        System.out.println("subregion = " + subregion);
-    }
 
     @Test
     void should_lazily_fetch_subregion2() {
