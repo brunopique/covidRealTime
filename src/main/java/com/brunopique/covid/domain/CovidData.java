@@ -5,6 +5,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+/**
+ A {@code CovidData} object represents a single day of data
+ (confirmed cases, deaths, recovered, etc.) for each of the
+ {@link com.brunopique.covid.domain.Subregion} objects.
+ */
 @Entity
 public class CovidData {
     private Long id;

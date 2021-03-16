@@ -1,10 +1,13 @@
 package com.brunopique.covid.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.util.*;
 
+/**
+ A {@code Region} object represents a single country and
+ holds a list of {@link com.brunopique.covid.domain.Subregion} objects,
+ with their corresponding daily {@link com.brunopique.covid.domain.CovidData}.
+ */
 @Entity
 public class Region {
 
@@ -62,7 +65,6 @@ public class Region {
         return "Region{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", subregions=" + subregions +
                 '}';
     }
 }

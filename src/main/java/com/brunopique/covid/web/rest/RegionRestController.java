@@ -1,16 +1,14 @@
 package com.brunopique.covid.web.rest;
 
 import com.brunopique.covid.domain.Region;
-import com.brunopique.covid.domain.Subregion;
 import com.brunopique.covid.service.RegionService;
-import com.brunopique.covid.service.SubregionService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/api/covid/regions", produces = "application/json")
@@ -33,10 +31,77 @@ public class RegionRestController {
     @ResponseBody
     public ResponseEntity<Region> getRegion(@PathVariable String regionName) {
         Region regionData = regionService.getRegion(regionName).orElse(new Region());
-        if (regionData == null)
-            return ResponseEntity.notFound().build();
-        else
-            return ResponseEntity.ok(regionData);
+        return ResponseEntity.ok(regionData);
+    }
+
+    @GetMapping("/mostdeaths")
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> getDeathliestRegion() {
+        Map<String, String> regionDeathliest = regionService.findWithMostDeaths();
+        return ResponseEntity.ok(regionDeathliest);
+    }
+
+    @GetMapping("/leastdeaths")
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> getLessDeathliestRegion() {
+        Map<String, String> regionDeathliest = regionService.findWithLeastDeaths();
+        return ResponseEntity.ok(regionDeathliest);
+    }
+
+    @GetMapping("/mostconfirmed")
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> getRegionWithMostConfirmed() {
+        Map<String, String> regionDeathliest = regionService.findWithHighestConfirmedCases();
+        return ResponseEntity.ok(regionDeathliest);
+    }
+
+    @GetMapping("/leastconfirmed")
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> getRegionWithLeastConfirmed() {
+        Map<String, String> regionDeathliest = regionService.findWithLowestConfirmedCases();
+        return ResponseEntity.ok(regionDeathliest);
+    }
+
+    @GetMapping("/mostrecovered")
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> getRegionWithMostRecovered() {
+        Map<String, String> regionDeathliest = regionService.findWithMostRecovered();
+        return ResponseEntity.ok(regionDeathliest);
+    }
+
+    @GetMapping("/leastrecovered")
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> getRegionWithLeastRecovered() {
+        Map<String, String> regionDeathliest = regionService.findWithLeastRecovered();
+        return ResponseEntity.ok(regionDeathliest);
+    }
+
+    @GetMapping("/highestincident")
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> getRegionWithHighestIncidentRate() {
+        Map<String, String> regionDeathliest = regionService.findWithHighestIncidentRate();
+        return ResponseEntity.ok(regionDeathliest);
+    }
+
+    @GetMapping("/lowestincident")
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> getRegionWithLowestIncidentRate() {
+        Map<String, String> regionDeathliest = regionService.findWithLowestIncidentRate();
+        return ResponseEntity.ok(regionDeathliest);
+    }
+
+    @GetMapping("/highestfatality")
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> getRegionWithHighestFatalityRate() {
+        Map<String, String> regionDeathliest = regionService.findWithHighestFatalityRate();
+        return ResponseEntity.ok(regionDeathliest);
+    }
+
+    @GetMapping("/lowestfatality")
+    @ResponseBody
+    public ResponseEntity<Map<String, String>> getRegionWithLowestFatalityRate() {
+        Map<String, String> regionDeathliest = regionService.findWithLowestFatalityRate();
+        return ResponseEntity.ok(regionDeathliest);
     }
 
     @GetMapping("/deaths/{regionName}")

@@ -6,6 +6,11 @@ import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ A {@code Subregion} object represents a single region for each of the
+ {@link com.brunopique.covid.domain.Region} objects and holds a list of
+ daily {@link com.brunopique.covid.domain.CovidData} .
+ */
 @Entity
 public class Subregion {
 

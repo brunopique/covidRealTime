@@ -51,16 +51,16 @@
 
           <nav class="nav-menu d-none d-lg-block">
             <ul>
-              <li class="active"><a href="index.html">Home</a></li>
-              <li><a href="#about">Global</a></li>
-              <li><a href="#services">Country</a></li>
-              <li><a href="#portfolio">Region</a></li>
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#global">Global</a></li>
+              <li><a href="#country">Country</a></li>
+              <li><a href="#region">Region</a></li>
               <li><a th:href="@{/swagger-ui.html}">API</a>
-              <li><a href="#team">About</a></li>
+              <li><a href="#footer">About</a></li>
             </ul>
           </nav><!-- .nav-menu -->
 
-          <a href="#about" class="get-started-btn scrollto">Global Numbers</a>
+          <a href="#global" class="get-started-btn scrollto">Global Numbers</a>
         </div>
       </div>
 
@@ -75,7 +75,7 @@
         <div class="col-xl-5 col-lg-6 pt-3 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
           <h1>The COVID-19 Pandemic in Numbers</h1>
           <h2>Daily updated data showing disease's impact in the world</h2>
-          <div><a href="#about" class="btn-get-started scrollto">Global Numbers</a></div>
+          <div><a href="#global" class="btn-get-started scrollto">Global Numbers</a></div>
         </div>
         <div class="col-xl-4 col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="150">
           <img th:src="@{/img/hero-img.png}" class="img-fluid animated" alt="">
@@ -88,35 +88,35 @@
   <main id="main">
 
     <!-- ======= About Section ======= -->
-    <section id="about" class="about">
+    <section id="global" class="about">
       <div class="container">
 
         <h2>Worldwide Numbers</h2>
 
         <div class="row counters" style="padding-top: 50px;">
 
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">232</span>
-            <p>Number of Deaths</p>
+<div class="col-md-6 col-xl-3 col-12 text-center">
+            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(worldwideDeaths,3,'COMMA')}]]</span>
+            <p>Deaths</p>
           </div>
 
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">521</span>
-            <p>Number of Confirmed Cases</p>
+          <div class="col-md-6 col-xl-3 col-12 text-center">
+            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(worldwideConfirmed,3,'COMMA')}]]</span>
+            <p>Confirmed Cases</p>
           </div>
 
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">1,463</span>
-            <p>Number of Recovered Cases</p>
+          <div class="col-md-6 col-xl-3 col-12 text-center">
+            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(worldwideRecovered,3,'COMMA')}]]</span>
+            <p>Recovered Cases</p>
           </div>
 
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">15</span>
+          <div class="col-md-6 col-xl-3 col-12 text-center">
+            <span data-toggle="counter-up" th:inline="text">[[${worldwideIncidentRate}]]</span>
             <p>Incident Rate</p>
           </div>
     
           <div class="col-12 text-center">
-            <span data-toggle="counter-up">15</span>
+            <span data-toggle="counter-up" th:inline="text">[[${worldwideFatalityRatio}]]</span><span>%</span>
             <p>Fatality Ratio</p>
           </div>
 
@@ -127,36 +127,36 @@
     </section><!-- End About Section -->
 
     <!-- ======= Counts Section ======= -->
-    <section id="counts" class="counts">
+    <section id="country" class="counts country">
       <div class="container">
 
         <h2>Highest Numbers by Country</h2>
 
         <div class="row counters" style="padding-top: 50px;">
 
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up" th:inline="text">[[${subregionDeaths}]]</span>
-            <p th:inline="text"><strong>Most Deaths:</strong> [[${subregionName}]]</p>
+          <div class="col-md-6 col-xl-3 col-12 text-center">
+            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(regionHighestMortalityNumber,3,'COMMA')}]]</span>
+            <p th:inline="text">Most Deaths: <strong>[[${regionHighestMortalityName}]]</strong></p>
           </div>
 
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">521</span>
-            <p>Most Confirmed Cases: [countryName]</p>
+          <div class="col-md-6 col-xl-3 col-12 text-center">
+            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(regionHighestConfirmedNumber,3,'COMMA')}]]</span>
+            <p th:inline="text">Most Confirmed Cases: <strong>[[${regionHighestConfirmedName}]]</strong></p>
           </div>
 
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">1,463</span>
-            <p>Most Recovered Cases: [countryName]</p>
+          <div class="col-md-6 col-xl-3 col-12 text-center">
+            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(regionHighestRecoveredNumber ,3,'COMMA')}]]</span>
+            <p th:inline="text">Most Recovered Cases: <strong>[[${regionHighestRecoveredName}]]</strong></p>
           </div>
 
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">15</span>
-            <p>Highest Incident Rate: [countryName]</p>
+          <div class="col-md-6 col-xl-3 col-12 text-center">
+            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(regionHighestIncidentNumber,3,'COMMA')}]]</span>
+            <p th:inline="text">Highest Incident Rate: <strong>[[${regionHighestIncidentName}]]</strong></p>
           </div>
     
           <div class="col-12 text-center">
-            <span data-toggle="counter-up">15</span>
-            <p>Highest Fatality Ratio: [countryName]</p>
+            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(regionHighestFatalityNumber,3,'COMMA')}]]</span><span>%</span>
+            <p th:inline="text">Highest Fatality Ratio: <strong>[[${regionHighestFatalityName}]]</strong></p>
           </div>
 
         </div>
@@ -167,29 +167,29 @@
 
         <div class="row counters" style="padding-top: 50px;">
 
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">232</span>
-            <p>Least Deaths: [countryName]</p>
+          <div class="col-md-6 col-xl-3 col-12 text-center">
+            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(regionLowestMortalityNumber,3,'COMMA')}]]</span>
+            <p th:inline="text">Least Deaths: <strong>[[${regionLowestMortalityName}]]</strong></p>
           </div>
 
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">521</span>
-            <p>Least Confirmed Cases: [countryName]</p>
+          <div class="col-md-6 col-xl-3 col-12 text-center">
+            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(regionLowestConfirmedNumber,3,'COMMA')}]]</span>
+            <p th:inline="text">Least Confirmed Cases: <strong>[[${regionLowestConfirmedName}]]</strong></p>
           </div>
 
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">1,463</span>
-            <p>Least Recovered Cases: [countryName]</p>
+          <div class="col-md-6 col-xl-3 col-12 text-center">
+            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(regionLowestConfirmedNumber,3,'COMMA')}]]</span>
+            <p th:inline="text">Least Recovered Cases: <strong>[[${regionLowestConfirmedName}]]</strong></p>
           </div>
 
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">15</span>
-            <p>Lowest Incident Rate: [countryName]</p>
+          <div class="col-md-6 col-xl-3 col-12 text-center">
+            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(regionLowestIncidentNumber,3,'COMMA')}]]</span>
+            <p th:inline="text">Lowest Incident Rate: <strong>[[${regionLowestIncidentName}]]</strong></p>
           </div>
     
           <div class="col-12 text-center">
-            <span data-toggle="counter-up">15</span>
-            <p>Lowest Fatality Ratio: [countryName]</p>
+            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(regionLowestFatalityNumber,3,'COMMA')}]]</span><span>%</span>
+            <p th:inline="text">Lowest Fatality Ratio: <strong>[[${regionLowestFatalityName}]]</strong></p>
           </div>
 
         </div>
@@ -198,36 +198,35 @@
     </section><!-- End Counts Section -->
 
     <!-- ======= Services Section ======= -->
-    <section id="about" class="about">
+    <section id="region" class="about">
       <div class="container">
 
         <h2>Highest Numbers by Region</h2>
 
         <div class="row counters" style="padding-top: 50px;">
 
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">232</span>
-            <p>Most Deaths: [regionName]</p>
+          <div class="col-md-6 col-xl-3 col-12 text-center">
+            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(subregionMostDeathsNumber,3,'COMMA')}]]</span>
+            <p th:inline="text">Most Deaths: <strong>[[${subregionMostDeathsName}]]</strong></p>
           </div>
 
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">521</span>
-            <p>Most Confirmed Cases: [regionName]</p>
+          <div class="col-md-6 col-xl-3 col-12 text-center">
+            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(subregionHighestConfirmedNumber,3,'COMMA')}]]</span>
+            <p th:inline="text">Most Confirmed Cases: <strong>[[${subregionHighestConfirmedName}]]</strong></p>
+          </div>
+          <div class="col-md-6 col-xl-3 col-12 text-center">
+            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(subregionHighestRecoveredNumber,3,'COMMA')}]]</span>
+            <p th:inline="text">Most Recovered Cases: <strong>[[${subregionHighestRecoveredName}]]</strong></p>
           </div>
 
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">1,463</span>
-            <p>Most Recovered Cases: [regionName]</p>
-          </div>
-
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">15</span>
-            <p>Highest Incident Rate: [regionName]</p>
+          <div class="col-md-6 col-xl-3 col-12 text-center">
+            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(subregionHighestIncidentNumber,3,'COMMA')}]]</span>
+            <p th:inline="text">Highest Incident Rate: <strong>[[${subregionHighestIncidentName}]]</strong></p>
           </div>
     
           <div class="col-12 text-center">
-            <span data-toggle="counter-up">15</span>
-            <p>Highest Fatality Ratio: [regionName]</p>
+            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(subregionHighestFatalityNumber,3,'COMMA')}]]</span><span>%</span>
+            <p th:inline="text">Highest Fatality Ratio: <strong>[[${subregionHighestFatalityName}]]</strong></p>
           </div>
 
         </div>
@@ -238,34 +237,33 @@
 
         <div class="row counters" style="padding-top: 50px;">
 
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">232</span>
-            <p>Least Deaths: [regionName]</p>
+          <div class="col-md-6 col-xl-3 col-12 text-center">
+            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(subregionLeastDeathsNumber,3,'COMMA')}]]</span>
+            <p th:inline="text">Least Deaths: <strong>[[${subregionLeastDeathsName}]]</strong></p>
           </div>
 
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">521</span>
-            <p>Least Confirmed Cases: [regionName]</p>
+          <div class="col-md-6 col-xl-3 col-12 text-center">
+            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(subregionLowestConfirmedNumber,3,'COMMA')}]]</span>
+            <p th:inline="text">Least Confirmed Cases: <strong>[[${subregionLowestConfirmedName}]]</strong></p>
           </div>
 
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">1,463</span>
-            <p>Least Recovered Cases: [regionName]</p>
+          <div class="col-md-6 col-xl-3 col-12 text-center">
+            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(subregionLowestRecoveredNumber,3,'COMMA')}]]</span>
+            <p th:inline="text">Least Recovered Cases: <strong>[[${subregionLowestRecoveredName}]]</strong></p>
           </div>
 
-          <div class="col-lg-3 col-6 text-center">
-            <span data-toggle="counter-up">15</span>
-            <p>Lowest Incident Rate: [regionName]</p>
+          <div class="col-md-6 col-xl-3 col-12 text-center">
+            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(subregionLowestIncidentNumber,3,'COMMA')}]]</span>
+            <p th:inline="text">Lowest Incident Rate: <strong>[[${subregionLowestIncidentName}]]</strong></p>
           </div>
     
           <div class="col-12 text-center">
-            <span data-toggle="counter-up">15</span>
-            <p>Lowest Fatality Ratio: [regionName]</p>
+            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(subregionLowestFatalityNumber,3,'COMMA')}]]</span><span>%</span>
+            <p th:inline="text">Lowest Fatality Ratio: <strong>[[${subregionLowestFatalityName}]]</strong></p>
           </div>
 
         </div>
   
-
       </div>
 
   </main><!-- End #main -->
@@ -278,7 +276,7 @@
         <div class="row">
 
           <div class="col-lg-3 col-md-6 footer-contact">
-            <h3>Techie</h3>
+            <h3>COVID-19</h3>
             <p>
               A108 Adam Street <br>
               New York, NY 535022<br>
@@ -327,22 +325,16 @@
       <div class="copyright-wrap d-md-flex py-4">
         <div class="mr-md-auto text-center text-md-left">
           <div class="copyright">
-            &copy; Copyright <strong><span>Techie</span></strong>. All Rights Reserved
+            &copy; Copyright <strong><span>Bruno Piqué</span></strong>. All Rights Reserved
           </div>
           <div class="credits">
-            <!-- All the links in the footer should remain intact. -->
-            <!-- You can delete the links only if you purchased the pro version. -->
-            <!-- Licensing information: https://bootstrapmade.com/license/ -->
-            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/techie-free-skin-bootstrap-3/ -->
-            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            Design by <a href="https://bootstrapmade.com/">BootstrapMade</a>
           </div>
         </div>
         <div class="social-links text-center text-md-right pt-3 pt-md-0">
-          <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-          <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-          <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-          <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-          <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+          <a href="https://www.linkedin.com/in/brunopique" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+          <a href="https://twitter.com/_brunopique_" class="twitter"><i class="bx bxl-twitter"></i></a>
+          <a href="https://github.com/brunopique" class="github"><i class="bx bxl-github"></i></a>
         </div>
       </div>
 

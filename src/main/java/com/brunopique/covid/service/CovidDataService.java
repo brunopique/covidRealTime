@@ -15,6 +15,7 @@ import java.io.*;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 @Service
@@ -30,6 +31,10 @@ public class CovidDataService {
     private CSVRecord csvRecord;
     private String yesterdaysFileName;
 
+    /**
+     * @return {@code true} if able to create new {@link com.brunopique.covid.domain.CovidData} object
+     * and save to the database, {@code false} otherwise.
+     */
     // If the server were constantly running, this method would not be called on
     // 'ApplicationReadyEvent' but on a scheduled time (using '@EnableScheduling')
     public boolean parseData() {
@@ -52,7 +57,9 @@ public class CovidDataService {
             for (CSVRecord record : records) {
                 csvRecord = record;
                 String regionName = record.get("Country_Region");
-                String subregionName = record.get("Province_State").isEmpty() ? regionName : record.get("Province_State");
+                String subregionName = record.get("Province_State");
+                if (subregionName.isEmpty() || subregionName.equals("Unknown"))
+                    subregionName = "Region in " + regionName;
                 String combinedNames = record.get("Combined_Key").isEmpty() ? regionName : record.get("Combined_Key");
                 long confirmed = Long.parseLong(getRecordValueOrElseZero("Confirmed"));
                 long deaths = Long.parseLong(getRecordValueOrElseZero("Deaths"));
@@ -68,8 +75,8 @@ public class CovidDataService {
                     regionService.save(newRegion);
                     return newRegion;
                 });
-                // If subregion exists get it from repo, otherwise create it and save it
-                subregion = subregionService.findByName(subregionName).orElseGet(() -> new Subregion(subregionName));
+                // If subregion exists get it from repo, otherwise create it
+                subregion = subregionService.findByNameAndRegion_Name(subregionName, regionName).orElse(new Subregion(subregionName));
                 // Add Region to Subregion
                 subregion.setRegion(region);
                 // Save subregion to repo
@@ -116,4 +123,25 @@ public class CovidDataService {
     public Long findTotalDeathsByRegion(String regionName) {
         return covidDataRepo.findTotalDeathsByRegion(regionName).orElse(0L);
     }
+
+    public Long getWorldwideDeaths() {
+        return covidDataRepo.getWorldwideDeaths().orElse(0L);
+    }
+
+    public Long getWorldwideConfirmed() {
+        return covidDataRepo.getWorldwideConfirmed().orElse(0L);
+    }
+
+    public Long getWorldwideRecovered() {
+        return covidDataRepo.getWorldwideRecovered().orElse(0L);
+    }
+
+    public Double getWorldwideIncidentRate() {
+        return covidDataRepo.getWorldwideIncidentRate().orElse(0.0);
+    }
+
+    public Double getWorldwideFatalityRatio() {
+        return covidDataRepo.getWorldwideFatalityRatio().orElse(0.0);
+    }
+
 }
