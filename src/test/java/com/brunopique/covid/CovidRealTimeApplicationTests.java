@@ -1,11 +1,7 @@
 package com.brunopique.covid;
 
-import com.brunopique.covid.domain.CovidData;
-import com.brunopique.covid.domain.Region;
-import com.brunopique.covid.domain.Subregion;
-import com.brunopique.covid.repository.CovidDataRepository;
-import com.brunopique.covid.repository.RegionRepository;
-import com.brunopique.covid.repository.SubregionRepository;
+import com.brunopique.covid.service.CovidDataService;
+import com.brunopique.covid.service.RegionService;
 import com.brunopique.covid.service.SubregionService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +15,11 @@ import java.util.Map;
 class CovidRealTimeApplicationTests {
 
     @Autowired
-    private RegionRepository regionRepository;
+    private RegionService regionService;
     @Autowired
-    private CovidDataRepository covidDataRepository;
+    private CovidDataService covidDataService;
     @Autowired
     private SubregionService subregionService;
-    @Autowired
-    private SubregionRepository subregionRepository;
-
 
     @Test
     void should_print_todays_date_in_csv_file_format() {
@@ -36,37 +29,37 @@ class CovidRealTimeApplicationTests {
     }
 
     @Test
-    void should_return_covid_daily() {
-        System.out.println(" dailyCovidDataRepository.findByName(\"Albania\"): " +  regionRepository.findByName("Albania"));
+    void should_return_region_by_name() {
+        System.out.println("regionService.findByName(\"Albania\"): " +  regionService.findByName("Albania"));
     }
 
     @Test
     void should_return_worldwide_number_of_deaths() {
-        Long worldwideDeaths = covidDataRepository.getWorldwideDeaths().orElse(0L);
+        Long worldwideDeaths = covidDataService.getWorldwideDeaths();
         System.out.println("worldwideDeaths = " + worldwideDeaths);
     }
 
     @Test
     void should_return_worldwide_number_of_confirmed() {
-        Long worldwideConfirmed = covidDataRepository.getWorldwideConfirmed().orElse(0L);
+        Long worldwideConfirmed = covidDataService.getWorldwideConfirmed();
         System.out.println("worldwideConfirmed = " + worldwideConfirmed);
     }
 
     @Test
     void should_return_worldwide_number_of_recovered() {
-        Long worldwideRecovered = covidDataRepository.getWorldwideRecovered().orElse(0L);
+        Long worldwideRecovered = covidDataService.getWorldwideRecovered();
         System.out.println("worldwideRecovered = " + worldwideRecovered);
     }
 
     @Test
     void should_return_worldwide_incedent_rate() {
-        Double worldwideIncidentRate = covidDataRepository.getWorldwideIncidentRate().orElse(0.0);
+        Double worldwideIncidentRate = covidDataService.getWorldwideIncidentRate();
         System.out.println("worldwideIncidentRate = " + worldwideIncidentRate);
     }
 
     @Test
     void should_return_worldwide_fatality_ratio() {
-        Double worldwideFatalityRatio = covidDataRepository.getWorldwideFatalityRatio().orElse(0.0);
+        Double worldwideFatalityRatio = covidDataService.getWorldwideFatalityRatio();
         System.out.println("worldwideFatalityRatio = " + worldwideFatalityRatio);
     }
 
@@ -75,32 +68,62 @@ class CovidRealTimeApplicationTests {
         System.out.println("Region from subregion search 'California' and 'US': " + subregionService.findByNameAndRegion_Name("California", "Us").get());
     }
 
-    @Test
-    void should_return_subregion_with_covid_data() {
-        Subregion subregion = subregionRepository.findByCovidDataId().orElse(new Subregion());
-        System.out.println("subregion = " + subregion);
-        System.out.println("subregion.getDailyCovidData() = " + subregion.getDailyCovidData());
-    }
+//    @Test
+//    void should_return_subregion_with_covid_data() {
+//        Subregion subregion = subregionService.findByCovidDataId().orElse(new Subregion());
+//        System.out.println("subregion = " + subregion);
+//        System.out.println("subregion.getDailyCovidData() = " + subregion.getDailyCovidData());
+//    }
 
     @Test
     void should_return_covid_data_from_region_search() {
-        Map<String, String> region = regionRepository.findWithMostDeaths().get();
+        Map<String, String> region = regionService.findWithMostDeaths();
         System.out.println("region: " + region);
     }
     
     @Test
     void should_return_region_with_highest_incident_rate() {
-        System.out.println("regionRepository.findWithHighestIncidentRate() = " + regionRepository.findWithHighestIncidentRate());
+        System.out.println("regionRepository.findWithHighestIncidentRate() = " + regionService.findWithHighestIncidentRate());
     }
 
     @Test
     void should_return_region_with_lowest_incident_rate() {
-        System.out.println("regionRepository.findWithLowestIncidentRate() = " + regionRepository.findWithLowestIncidentRate());
+        System.out.println("regionRepository.findWithLowestIncidentRate() = " + regionService.findWithLowestIncidentRate());
     }
     
     @Test
     void should_return_total_deaths_by_region_name() {
-        System.out.println("regionRepository.findTotalDeathsByName(\"Spain\") = " + regionRepository.findTotalDeathsByName("Spain"));
+        System.out.println("regionRepository.findTotalDeathsByName(\"Spain\") = " + regionService.findTotalDeathsByName("Spain"));
+    }
+    
+    @Test
+    void should_return_covid_data_object_with_more_deaths() {
+        System.out.println("covidDataService.findFirstByOrderByDeathsDesc() = " + covidDataService.findFirstByOrderByDeathsDesc());
+    }
+
+    @Test
+    void should_return_covid_data_object_with_more_confirmed_cases() {
+        System.out.println("covidDataService.findFirstByOrderByConfirmedDesc() = " + covidDataService.findFirstByOrderByConfirmedDesc());
+    }
+
+    @Test
+    void should_return_covid_data_object_with_more_active_cases() {
+        System.out.println("covidDataService.findFirstByOrderByActiveDesc() = " + covidDataService.findFirstByOrderByActiveDesc());
+    }
+
+    @Test
+    void should_return_covid_data_object_with_highest_incident_rate() {
+        System.out.println("covidDataService.findFirstByOrderByIncidentRateDesc() = " + covidDataService.findFirstByOrderByIncidentRateDesc());
+    }
+
+    @Test
+    void should_return_covid_data_object_with_highest_fatality_rate() {
+        System.out.println("covidDataService.findFirstByOrderByCaseFatalityRatioDesc() = " + covidDataService.findFirstByOrderByCaseFatalityRatioDesc());
+    }
+
+    @Test
+    void should_return_covid_data_object_by_number_of_deaths() {
+        System.out.println("covidDataService.covidDataService.findAllByDeathsIsGreaterThanEqual(100000L) = " + covidDataService.findAllByDeathsIsGreaterThanEqualAndDateGreaterThanEqual(50000L));
     }
 
 }

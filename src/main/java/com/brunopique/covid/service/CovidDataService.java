@@ -137,4 +137,32 @@ public class CovidDataService {
         return covidDataRepo.findAllByDate(date).orElse(new ArrayList<>());
     }
 
+    public CovidData findFirstByOrderByDeathsDesc() {
+        return covidDataRepo.findFirstByOrderByDeathsDesc().orElse(new CovidData());
+    }
+
+    public CovidData findFirstByOrderByConfirmedDesc() {
+        return covidDataRepo.findFirstByOrderByConfirmedDesc().orElse(new CovidData());
+    }
+
+    public CovidData findFirstByOrderByActiveDesc() {
+        return covidDataRepo.findFirstByOrderByActiveDesc().orElse(new CovidData());
+    }
+
+    public CovidData findFirstByOrderByIncidentRateDesc() {
+        return covidDataRepo.findFirstByOrderByIncidentRateDesc().orElse(new CovidData());
+    }
+
+    public CovidData findFirstByOrderByCaseFatalityRatioDesc() {
+        return covidDataRepo.findFirstByOrderByCaseFatalityRatioDesc().orElse(new CovidData());
+    }
+
+    public CovidData findFirstByOrderByRecoveredDesc() {
+        return covidDataRepo.findFirstByOrderByRecoveredDesc().orElse(new CovidData());
+    }
+
+    public List<CovidData> findAllByDeathsIsGreaterThanEqualAndDateGreaterThanEqual(Long deaths) {
+        LocalDate date = LocalDate.now().minusDays(1);
+        return covidDataRepo.findAllByDeathsIsGreaterThanEqualAndDateGreaterThanEqual(deaths, date).orElse(new ArrayList<>());
+    }
 }

@@ -9,7 +9,7 @@ import java.util.Objects;
 /**
  A {@code CovidData} object represents a single day of data
  (confirmed cases, deaths, recovered, etc.) for each of the
- {@link com.brunopique.covid.domain.Subregion} objects.
+ {@link com.brunopique.covid.domain.Subregion} parent objects.
  */
 @Entity
 public class CovidData {

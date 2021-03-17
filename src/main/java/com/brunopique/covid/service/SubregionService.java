@@ -72,4 +72,27 @@ public class SubregionService {
         return subregionRepo.findWithLowestFatalityRate().orElse(new HashMap<>());
     }
 
+    public List<Subregion> getAllRegions() {
+        return subregionRepo.findAll();
+    }
+
+    public Long findTotalDeathsByName(String subregionName) {
+        return subregionRepo.findTotalDeathsByName(subregionName).orElse(0L);
+    }
+
+    public Long findTotalConfirmedByName(String subregionName) {
+        return subregionRepo.findTotalConfirmedByName(subregionName).orElse(0L);
+    }
+
+    public Long findTotalRecoveredByName(String subregionName) {
+        return subregionRepo.findTotalRecoveredByName(subregionName).orElse(0L);
+    }
+
+    public Double findTotalIncidentRateByName(String subregionName) {
+        return subregionRepo.findTotalIncidentRateByName(subregionName).orElse(0.0D);
+    }
+
+    public Double findTotalFatalityRatioByName(String subregionName) {
+        return subregionRepo.findTotalFatalityRatioByName(subregionName).orElse(0.0D);
+    }
 }

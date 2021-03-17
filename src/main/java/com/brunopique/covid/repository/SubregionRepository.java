@@ -1,6 +1,5 @@
 package com.brunopique.covid.repository;
 
-import com.brunopique.covid.domain.Region;
 import com.brunopique.covid.domain.Subregion;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,7 +16,7 @@ public interface SubregionRepository extends JpaRepository<Subregion, Long> {
 
     Optional<Subregion> findByNameAndRegion_Name(String subregionName, String regionName);
 
-    Optional<List<Subregion>> findByRegion_Name(String regionName);
+    Optional<List<Subregion>> findByRegion_Name(String subregionName);
 
     @Query("select sr from Subregion sr " +
             "join fetch sr.dailyCovidData as cd " +
@@ -103,5 +102,35 @@ public interface SubregionRepository extends JpaRepository<Subregion, Long> {
             "ORDER BY case_fatality_ratio LIMIT 1",
             nativeQuery = true)
     Optional<Map<String, String>> findWithLowestFatalityRate();
+
+    @Query(value = "SELECT SUM(cd.deaths) FROM covid_data cd " +
+            "LEFT JOIN subregion s ON cd.subregion_id = s.id " +
+            "WHERE cd.date = CURDATE() - INTERVAL 1 DAY AND s.name = :subregionName",
+            nativeQuery = true)
+    Optional<Long> findTotalDeathsByName(String subregionName);
+
+    @Query(value = "SELECT SUM(cd.confirmed) FROM covid_data cd " +
+            "LEFT JOIN subregion s ON cd.subregion_id = s.id " +
+            "WHERE cd.date = CURDATE() - INTERVAL 1 DAY AND s.name = :subregionName",
+            nativeQuery = true)
+    Optional<Long> findTotalConfirmedByName(String subregionName);
+
+    @Query(value = "SELECT SUM(cd.recovered) FROM covid_data cd " +
+            "LEFT JOIN subregion s ON cd.subregion_id = s.id " +
+            "WHERE cd.date = CURDATE() - INTERVAL 1 DAY AND s.name = :subregionName",
+            nativeQuery = true)
+    Optional<Long> findTotalRecoveredByName(String subregionName);
+
+    @Query(value = "SELECT ROUND(SUM(cd.incident_rate) / COUNT(cd.id), 2) FROM covid_data cd " +
+            "LEFT JOIN subregion s ON cd.subregion_id = s.id " +
+            "WHERE cd.date = CURDATE() - INTERVAL 1 DAY AND s.name = :subregionName",
+            nativeQuery = true)
+    Optional<Double> findTotalIncidentRateByName(String subregionName);
+
+    @Query(value = "SELECT ROUND(SUM(cd.case_fatality_ratio) / COUNT(cd.id), 2) FROM covid_data cd " +
+            "LEFT JOIN subregion s ON cd.subregion_id = s.id " +
+            "WHERE cd.date = CURDATE() - INTERVAL 1 DAY AND s.name = :subregionName",
+            nativeQuery = true)
+    Optional<Double> findTotalFatalityRatioByName(String subregionName);
 
 }

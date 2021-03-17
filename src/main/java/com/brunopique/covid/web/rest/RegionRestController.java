@@ -17,7 +17,7 @@ public class RegionRestController {
     @Autowired
     private RegionService regionService;
 
-    @GetMapping("/allregions")
+    @GetMapping("/all")
     @ResponseBody
     public ResponseEntity<List<Region>> getAllRegions() {
         List<Region> regionData = regionService.getAllRegions();

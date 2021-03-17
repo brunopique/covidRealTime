@@ -41,4 +41,17 @@ public interface CovidDataRepository extends JpaRepository<CovidData, String> {
 
     Optional<List<CovidData>> findAllByDate(LocalDate date);
 
+    Optional<CovidData> findFirstByOrderByDeathsDesc();
+
+    Optional<CovidData> findFirstByOrderByConfirmedDesc();
+
+    Optional<CovidData> findFirstByOrderByActiveDesc();
+
+    Optional<CovidData> findFirstByOrderByIncidentRateDesc();
+
+    Optional<CovidData> findFirstByOrderByCaseFatalityRatioDesc();
+
+    Optional<CovidData> findFirstByOrderByRecoveredDesc();
+
+    Optional<List<CovidData>> findAllByDeathsIsGreaterThanEqualAndDateGreaterThanEqual(Long deaths, LocalDate date);
 }
