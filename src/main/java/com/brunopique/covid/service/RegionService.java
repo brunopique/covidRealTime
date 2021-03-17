@@ -15,19 +15,33 @@ public class RegionService {
 
     @Autowired
     private RegionRepository regionRepository;
-    @Autowired
-    private CovidDataService covidDataService;
 
     public List<Region> getAllRegions() {
         return regionRepository.findAll();
     }
 
-    public Optional<Region> getRegion(String regionName) {
+    public Optional<Region> findByName(String regionName) {
         return regionRepository.findByName(regionName);
     }
 
-    public Optional<Region> findByName(String regionName) {
-        return regionRepository.findByName(regionName);
+    public Long findTotalDeathsByName(String regionName) {
+        return regionRepository.findTotalDeathsByName(regionName).orElse(0L);
+    }
+
+    public Long findTotalConfirmedByName(String regionName) {
+        return regionRepository.findTotalConfirmedByName(regionName).orElse(0L);
+    }
+
+    public Long findTotalRecoveredByName(String regionName) {
+        return regionRepository.findTotalRecoveredByName(regionName).orElse(0L);
+    }
+
+    public Double findTotalIncidentRateByName(String regionName) {
+        return regionRepository.findTotalIncidentRateByName(regionName).orElse(0.0D);
+    }
+
+    public Double findTotalFatalityRatioByName(String regionName) {
+        return regionRepository.findTotalFatalityRatioByName(regionName).orElse(0.0D);
     }
 
     public Region save(Region region) {
@@ -35,7 +49,7 @@ public class RegionService {
     }
 
     public Long findTotalDeathsByRegion(String regionName) {
-        return covidDataService.findTotalDeathsByRegion(regionName);
+        return regionRepository.findTotalDeathsByName(regionName).orElse(0L);
     }
 
     public Map<String, String> findWithMostDeaths() {
@@ -77,5 +91,4 @@ public class RegionService {
     public Map<String, String> findWithLowestFatalityRate() {
         return regionRepository.findWithLowestFatalityRate().orElse(new HashMap<>());
     }
-
 }

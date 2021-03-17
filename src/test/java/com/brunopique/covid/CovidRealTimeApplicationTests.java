@@ -27,38 +27,17 @@ class CovidRealTimeApplicationTests {
     @Autowired
     private SubregionRepository subregionRepository;
 
-    @Test
-    void contextLoads() {
-    }
-
-    @Test
-    void should_return_all_regions() {
-        // assertEquals()
-
-    }
 
     @Test
     void should_print_todays_date_in_csv_file_format() {
         System.out.println(DateTimeFormatter.ofPattern("MM-dd-yyyy")
                                             .format(LocalDate.now()));
+        System.out.println("LocalDate.now() = " + LocalDate.now());
     }
 
     @Test
     void should_return_covid_daily() {
         System.out.println(" dailyCovidDataRepository.findByName(\"Albania\"): " +  regionRepository.findByName("Albania"));
-    }
-
-
-    @Test
-    void should_lazily_fetch_subregion2() {
-        CovidData cd = covidDataRepository.findFirstByOrderByDeathsDesc().get();
-        System.out.println("cd = " + cd);
-    }
-
-    @Test
-    void should_get_total_deaths_per_region() {
-       Long regionDeaths = covidDataRepository.findTotalDeathsByRegion("australia").orElse(0L);
-        System.out.println("deaths = " + regionDeaths);
     }
 
     @Test
@@ -107,8 +86,6 @@ class CovidRealTimeApplicationTests {
     void should_return_covid_data_from_region_search() {
         Map<String, String> region = regionRepository.findWithMostDeaths().get();
         System.out.println("region: " + region);
-//        System.out.println("subregions: " + region.getSubregions());
-//        region.getSubregions().forEach(sr -> System.out.println("sr.getDailyCovidData() = " + sr.getDailyCovidData()));
     }
     
     @Test
@@ -119,6 +96,11 @@ class CovidRealTimeApplicationTests {
     @Test
     void should_return_region_with_lowest_incident_rate() {
         System.out.println("regionRepository.findWithLowestIncidentRate() = " + regionRepository.findWithLowestIncidentRate());
+    }
+    
+    @Test
+    void should_return_total_deaths_by_region_name() {
+        System.out.println("regionRepository.findTotalDeathsByName(\"Spain\") = " + regionRepository.findTotalDeathsByName("Spain"));
     }
 
 }

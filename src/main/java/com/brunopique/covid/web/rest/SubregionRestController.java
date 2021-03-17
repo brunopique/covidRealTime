@@ -1,6 +1,5 @@
 package com.brunopique.covid.web.rest;
 
-import com.brunopique.covid.domain.CovidData;
 import com.brunopique.covid.domain.Subregion;
 import com.brunopique.covid.service.SubregionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +13,8 @@ import java.util.List;
 public class SubregionRestController {
 
     @Autowired
-    SubregionService subregionService;
+    private SubregionService subregionService;
 
-    // TODO: should I filter by date?
     @GetMapping("")
     @ResponseBody
     public ResponseEntity<List<Subregion>> getAllSubregions() {
@@ -34,11 +32,4 @@ public class SubregionRestController {
         return ResponseEntity.ok(subregion);
     }
 
-//    @GetMapping("/mostdeaths")
-//    @ResponseBody
-//    public ResponseEntity<Subregion> getSubRegion() {
-//        Subregion subregion = subregionService.findByMostDeaths();
-//
-//        return ResponseEntity.ok(subregion);
-//    }
 }

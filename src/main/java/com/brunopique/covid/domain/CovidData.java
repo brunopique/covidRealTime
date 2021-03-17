@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  A {@code CovidData} object represents a single day of data
@@ -134,5 +135,18 @@ public class CovidData {
                 ", incidentRate=" + incidentRate +
                 ", caseFatalityRatio=" + caseFatalityRatio +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CovidData)) return false;
+        CovidData covidData = (CovidData) o;
+        return id.equals(covidData.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

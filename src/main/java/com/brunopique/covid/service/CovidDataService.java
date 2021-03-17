@@ -15,7 +15,8 @@ import java.io.*;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @Service
@@ -112,18 +113,6 @@ public class CovidDataService {
         return record.isEmpty() ? "0" : record;
     }
 
-    public CovidData getDayWithMostDeathsForSubregion(String subregion) {
-        return covidDataRepo.findFirstBySubregion_NameOrderByDeathsDesc(subregion).orElse(new CovidData());
-    }
-
-    public CovidData findFirstByOrderByDeathsDesc() {
-        return covidDataRepo.findFirstByOrderByDeathsDesc().orElse(new CovidData());
-    }
-
-    public Long findTotalDeathsByRegion(String regionName) {
-        return covidDataRepo.findTotalDeathsByRegion(regionName).orElse(0L);
-    }
-
     public Long getWorldwideDeaths() {
         return covidDataRepo.getWorldwideDeaths().orElse(0L);
     }
@@ -142,6 +131,10 @@ public class CovidDataService {
 
     public Double getWorldwideFatalityRatio() {
         return covidDataRepo.getWorldwideFatalityRatio().orElse(0.0);
+    }
+
+    public List<CovidData> findAllByDate(LocalDate date) {
+        return covidDataRepo.findAllByDate(date).orElse(new ArrayList<>());
     }
 
 }

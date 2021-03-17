@@ -41,25 +41,4 @@ public interface CovidDataRepository extends JpaRepository<CovidData, String> {
 
     Optional<List<CovidData>> findAllByDate(LocalDate date);
 
-    Optional<CovidData> findFirstBySubregion_NameOrderByDeathsDesc(String name);
-
-    // TODO: can I extract this logic to Region and Subregion repo (to avoid eager fetching in covid data)
-
-    @Query(value = "SELECT cd.id, cd.active, cd.case_fatality_ratio, cd.confirmed, cd.date, cd.deaths, cd.incident_rate, cd.recovered, cd.region_and_country, cd.recovered, cd.subregion_id from covid_data cd " +
-            "LEFT JOIN subregion s ON cd.subregion_id = s.id " +
-            "WHERE cd.date = CURDATE() - INTERVAL 1 DAY " +
-            "ORDER BY cd.deaths DESC limit 1",
-            nativeQuery = true)
-    Optional<CovidData> findFirstByOrderByDeathsDesc();
-
-    Optional<CovidData> findFirstByOrderByDeathsDescSubregion_NameDesc();
-
-    Optional<CovidData> findAllByOrderByDeathsDesc();
-
-    @Query(value = "SELECT SUM(cd.deaths) FROM covid_data cd " +
-            "LEFT JOIN subregion s ON cd.subregion_id = s.id " +
-            "LEFT JOIN region r ON s.region_id = r.id " +
-            "WHERE cd.date = CURDATE() - INTERVAL 1 DAY AND r.name = :regionName",
-            nativeQuery = true)
-    Optional<Long> findTotalDeathsByRegion(String regionName);
 }

@@ -30,7 +30,7 @@ public class RegionRestController {
     @GetMapping("/{regionName}")
     @ResponseBody
     public ResponseEntity<Region> getRegion(@PathVariable String regionName) {
-        Region regionData = regionService.getRegion(regionName).orElse(new Region());
+        Region regionData = regionService.findByName(regionName).orElse(new Region());
         return ResponseEntity.ok(regionData);
     }
 
@@ -106,8 +106,36 @@ public class RegionRestController {
 
     @GetMapping("/deaths/{regionName}")
     @ResponseBody
-    public ResponseEntity<String> getTotalDeaths(@PathVariable String regionName) {
+    public ResponseEntity<String> getTotalDeathsByName(@PathVariable String regionName) {
         Long totalDeaths = regionService.findTotalDeathsByRegion(regionName);
         return ResponseEntity.ok("{ \"country\" : \"" + regionName + "\", \"deaths\" : \"" + totalDeaths + "\" }");
+    }
+
+    @GetMapping("/confirmed/{regionName}")
+    @ResponseBody
+    public ResponseEntity<String> getTotalConfirmed(@PathVariable String regionName) {
+        Long totalDeaths = regionService.findTotalConfirmedByName(regionName);
+        return ResponseEntity.ok("{ \"country\" : \"" + regionName + "\", \"confirmed\" : \"" + totalDeaths + "\" }");
+    }
+
+    @GetMapping("/recovered/{regionName}")
+    @ResponseBody
+    public ResponseEntity<String> getTotalRecovered(@PathVariable String regionName) {
+        Long totalDeaths = regionService.findTotalRecoveredByName(regionName);
+        return ResponseEntity.ok("{ \"country\" : \"" + regionName + "\", \"recovered\" : \"" + totalDeaths + "\" }");
+    }
+
+    @GetMapping("/incidentrate/{regionName}")
+    @ResponseBody
+    public ResponseEntity<String> getTotalIncidentRateByName(@PathVariable String regionName) {
+        Double totalDeaths = regionService.findTotalIncidentRateByName(regionName);
+        return ResponseEntity.ok("{ \"country\" : \"" + regionName + "\", \"incident_rate\" : \"" + totalDeaths + "\" }");
+    }
+
+    @GetMapping("/fatalityratio/{regionName}")
+    @ResponseBody
+    public ResponseEntity<String> getTotalFatalityRatioByName(@PathVariable String regionName) {
+        Double totalDeaths = regionService.findTotalFatalityRatioByName(regionName);
+        return ResponseEntity.ok("{ \"country\" : \"" + regionName + "\", \"fatality_ratio\" : \"" + totalDeaths + "\" }");
     }
 }
