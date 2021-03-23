@@ -24,7 +24,7 @@ public class SpringFoxConfig {
 
         ApiInfo apiInfo = new ApiInfo("COVID-19 DATA API",
                 "Swagger implementation for the `com.brunopique.covid` web application.",
-                "1.0",
+                "1.1",
                 "",
                 new Contact("Bruno Piqué",
                         "http://brunopique.dev",
