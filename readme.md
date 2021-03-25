@@ -17,7 +17,7 @@ The project uses Java 11, Spring, Hibernate, MySql, HTML, CSS, Bootstrap, Thymel
 
 ## Project in action 
 
-[Project on Heroku](https://boiling-peak-82660.herokuapp.com/) (might take a few minutes to boot up since apps goes to sleep after 30 min of inactivity.)
+[Project on Heroku](https://boiling-peak-82660.herokuapp.com/) (might take a few minutes to boot up since app goes to sleep after 30 min of inactivity.)
 
 ## Meta
 
