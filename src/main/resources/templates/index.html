@@ -14,7 +14,9 @@
   <link th:href="@{/img/apple-touch-icon.png}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
@@ -85,33 +87,38 @@
 
         <div class="row counters" style="padding-top: 50px;">
 
-<div class="col-md-6 col-xl-3 col-12 text-center">
-            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(indexModel.worldwideDeaths,3,'COMMA')}]]</span>
+          <div class="col-md-6 col-xl-3 col-12 text-center">
+            <span data-toggle="counter-up"
+              th:inline="text">[[${#numbers.formatInteger(indexModel.worldwideDeaths,3,'COMMA')}]]</span>
             <p>Deaths</p>
           </div>
 
           <div class="col-md-6 col-xl-3 col-12 text-center">
-            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(indexModel.worldwideConfirmed,3,'COMMA')}]]</span>
+            <span data-toggle="counter-up"
+              th:inline="text">[[${#numbers.formatInteger(indexModel.worldwideConfirmed,3,'COMMA')}]]</span>
             <p>Confirmed Cases</p>
           </div>
 
           <div class="col-md-6 col-xl-3 col-12 text-center">
-            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(indexModel.worldwideRecovered,3,'COMMA')}]]</span>
+            <span data-toggle="counter-up"
+              th:inline="text">[[${#numbers.formatInteger(indexModel.worldwideRecovered,3,'COMMA')}]]</span>
             <p>Recovered Cases</p>
           </div>
 
           <div class="col-md-6 col-xl-3 col-12 text-center">
-            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(indexModel.worldwideIncidentRate,3,'COMMA')}]]</span>
+            <span data-toggle="counter-up"
+              th:inline="text">[[${#numbers.formatInteger(indexModel.worldwideIncidentRate,3,'COMMA')}]]</span>
             <p>Incident Rate</p>
           </div>
-    
+
           <div class="col-12 text-center">
-            <span data-toggle="counter-up" th:inline="text">[[${indexModel.worldwideFatalityRatio}]]</span><span>%</span>
+            <span data-toggle="counter-up"
+              th:inline="text">[[${indexModel.worldwideFatalityRatio}]]</span><span>%</span>
             <p>Fatality Ratio</p>
           </div>
 
         </div>
-  
+
 
       </div>
     </section><!-- End Global Section -->
@@ -125,28 +132,40 @@
         <div class="row counters" style="padding-top: 50px;">
 
           <div class="col-md-6 col-xl-3 col-12 text-center">
-            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(indexModel.regionWithMostDeaths.deaths,3,'COMMA')}]]</span>
+            <span data-toggle="counter-up"
+              th:inline="text">[[${#numbers.formatInteger(indexModel.regionWithMostDeaths.deaths,3,'COMMA')}]]</span>
             <p th:inline="text">Most Deaths: <strong>[[${indexModel.regionWithMostDeaths.name}]]</strong></p>
           </div>
 
           <div class="col-md-6 col-xl-3 col-12 text-center">
-            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(indexModel.regionWithHighestConfirmedCases.confirmed,3,'COMMA')}]]</span>
-            <p th:inline="text">Most Confirmed Cases: <strong>[[${indexModel.regionWithHighestConfirmedCases.name}]]</strong></p>
+            <span data-toggle="counter-up"
+              th:inline="text">[[${#numbers.formatInteger(indexModel.regionWithHighestConfirmedCases.confirmed,3,'COMMA')}]]</span>
+            <p th:inline="text">Most Confirmed Cases:
+              <strong>[[${indexModel.regionWithHighestConfirmedCases.name}]]</strong>
+            </p>
           </div>
 
           <div class="col-md-6 col-xl-3 col-12 text-center">
-            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(indexModel.regionWithMostRecovered.recovered,3,'COMMA')}]]</span>
-            <p th:inline="text">Most Recovered Cases: <strong>[[${indexModel.regionWithMostRecovered.name}]]</strong></p>
+            <span data-toggle="counter-up"
+              th:inline="text">[[${#numbers.formatInteger(indexModel.regionWithMostRecovered.recovered,3,'COMMA')}]]</span>
+            <p th:inline="text">Most Recovered Cases: <strong>[[${indexModel.regionWithMostRecovered.name}]]</strong>
+            </p>
           </div>
 
           <div class="col-md-6 col-xl-3 col-12 text-center">
-            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(indexModel.regionWithHighestIncidentRate.incident_rate,3,'COMMA')}]]</span>
-            <p th:inline="text">Highest Incident Rate: <strong>[[${indexModel.regionWithHighestIncidentRate.name}]]</strong></p>
+            <span data-toggle="counter-up"
+              th:inline="text">[[${#numbers.formatInteger(indexModel.regionWithHighestIncidentRate.incident_rate,3,'COMMA')}]]</span>
+            <p th:inline="text">Highest Incident Rate:
+              <strong>[[${indexModel.regionWithHighestIncidentRate.name}]]</strong>
+            </p>
           </div>
-    
+
           <div class="col-12 text-center">
-            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(indexModel.regionWithHighestFatalityRate.case_fatality_ratio,3,'COMMA')}]]</span><span>%</span>
-            <p th:inline="text">Highest Fatality Ratio: <strong>[[${indexModel.regionWithHighestFatalityRate.name}]]</strong></p>
+            <span data-toggle="counter-up"
+              th:inline="text">[[${#numbers.formatInteger(indexModel.regionWithHighestFatalityRate.case_fatality_ratio,3,'COMMA')}]]</span><span>%</span>
+            <p th:inline="text">Highest Fatality Ratio:
+              <strong>[[${indexModel.regionWithHighestFatalityRate.name}]]</strong>
+            </p>
           </div>
 
         </div>
@@ -158,28 +177,40 @@
         <div class="row counters" style="padding-top: 50px;">
 
           <div class="col-md-6 col-xl-3 col-12 text-center">
-            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(indexModel.regionWithLeastDeaths.deaths,3,'COMMA')}]]</span>
+            <span data-toggle="counter-up"
+              th:inline="text">[[${#numbers.formatInteger(indexModel.regionWithLeastDeaths.deaths,3,'COMMA')}]]</span>
             <p th:inline="text">Least Deaths: <strong>[[${indexModel.regionWithLeastDeaths.name}]]</strong></p>
           </div>
 
           <div class="col-md-6 col-xl-3 col-12 text-center">
-            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(indexModel.regionWithLowestConfirmedCases.confirmed,3,'COMMA')}]]</span>
-            <p th:inline="text">Least Confirmed Cases: <strong>[[${indexModel.regionWithLowestConfirmedCases.name}]]</strong></p>
+            <span data-toggle="counter-up"
+              th:inline="text">[[${#numbers.formatInteger(indexModel.regionWithLowestConfirmedCases.confirmed,3,'COMMA')}]]</span>
+            <p th:inline="text">Least Confirmed Cases:
+              <strong>[[${indexModel.regionWithLowestConfirmedCases.name}]]</strong>
+            </p>
           </div>
 
           <div class="col-md-6 col-xl-3 col-12 text-center">
-            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(indexModel.regionWithLeastRecovered.recovered,3,'COMMA')}]]</span>
-            <p th:inline="text">Least Recovered Cases: <strong>[[${indexModel.regionWithLeastRecovered.name}]]</strong></p>
+            <span data-toggle="counter-up"
+              th:inline="text">[[${#numbers.formatInteger(indexModel.regionWithLeastRecovered.recovered,3,'COMMA')}]]</span>
+            <p th:inline="text">Least Recovered Cases: <strong>[[${indexModel.regionWithLeastRecovered.name}]]</strong>
+            </p>
           </div>
 
           <div class="col-md-6 col-xl-3 col-12 text-center">
-            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(indexModel.regionWithLowestIncidentRate.incident_rate,3,'COMMA')}]]</span>
-            <p th:inline="text">Lowest Incident Rate: <strong>[[${indexModel.regionWithLowestIncidentRate.name}]]</strong></p>
+            <span data-toggle="counter-up"
+              th:inline="text">[[${#numbers.formatInteger(indexModel.regionWithLowestIncidentRate.incident_rate,3,'COMMA')}]]</span>
+            <p th:inline="text">Lowest Incident Rate:
+              <strong>[[${indexModel.regionWithLowestIncidentRate.name}]]</strong>
+            </p>
           </div>
-    
+
           <div class="col-12 text-center">
-            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(indexModel.regionWithLowestFatalityRate.case_fatality_ratio,3,'COMMA')}]]</span><span>%</span>
-            <p th:inline="text">Lowest Fatality Ratio: <strong>[[${indexModel.regionWithLowestFatalityRate.name}]]</strong></p>
+            <span data-toggle="counter-up"
+              th:inline="text">[[${#numbers.formatInteger(indexModel.regionWithLowestFatalityRate.case_fatality_ratio,3,'COMMA')}]]</span><span>%</span>
+            <p th:inline="text">Lowest Fatality Ratio:
+              <strong>[[${indexModel.regionWithLowestFatalityRate.name}]]</strong>
+            </p>
           </div>
 
         </div>
@@ -196,28 +227,40 @@
         <div class="row counters" style="padding-top: 50px;">
 
           <div class="col-md-6 col-xl-3 col-12 text-center">
-            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(indexModel.subregionWithMostDeaths.deaths,3,'COMMA')}]]</span>
+            <span data-toggle="counter-up"
+              th:inline="text">[[${#numbers.formatInteger(indexModel.subregionWithMostDeaths.deaths,3,'COMMA')}]]</span>
             <p th:inline="text">Most Deaths: <strong>[[${indexModel.subregionWithMostDeaths.name}]]</strong></p>
           </div>
 
           <div class="col-md-6 col-xl-3 col-12 text-center">
-            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(indexModel.subregionWithHighestConfirmedCases.confirmed,3,'COMMA')}]]</span>
-            <p th:inline="text">Most Confirmed Cases: <strong>[[${indexModel.subregionWithHighestConfirmedCases.name}]]</strong></p>
+            <span data-toggle="counter-up"
+              th:inline="text">[[${#numbers.formatInteger(indexModel.subregionWithHighestConfirmedCases.confirmed,3,'COMMA')}]]</span>
+            <p th:inline="text">Most Confirmed Cases:
+              <strong>[[${indexModel.subregionWithHighestConfirmedCases.name}]]</strong>
+            </p>
           </div>
 
           <div class="col-md-6 col-xl-3 col-12 text-center">
-            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(indexModel.subregionWithMostRecovered.recovered,3,'COMMA')}]]</span>
-            <p th:inline="text">Most Recovered Cases: <strong>[[${indexModel.subregionWithMostRecovered.name}]]</strong></p>
+            <span data-toggle="counter-up"
+              th:inline="text">[[${#numbers.formatInteger(indexModel.subregionWithMostRecovered.recovered,3,'COMMA')}]]</span>
+            <p th:inline="text">Most Recovered Cases: <strong>[[${indexModel.subregionWithMostRecovered.name}]]</strong>
+            </p>
           </div>
 
           <div class="col-md-6 col-xl-3 col-12 text-center">
-            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(indexModel.subregionWithHighestIncidentRate.incident_rate,3,'COMMA')}]]</span>
-            <p th:inline="text">Highest Incident Rate: <strong>[[${indexModel.subregionWithHighestIncidentRate.name}]]</strong></p>
+            <span data-toggle="counter-up"
+              th:inline="text">[[${#numbers.formatInteger(indexModel.subregionWithHighestIncidentRate.incident_rate,3,'COMMA')}]]</span>
+            <p th:inline="text">Highest Incident Rate:
+              <strong>[[${indexModel.subregionWithHighestIncidentRate.name}]]</strong>
+            </p>
           </div>
-    
+
           <div class="col-12 text-center">
-            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(indexModel.subregionWithHighestFatalityRate.case_fatality_ratio,3,'COMMA')}]]</span><span>%</span>
-            <p th:inline="text">Highest Fatality Ratio: <strong>[[${indexModel.subregionWithHighestFatalityRate.name}]]</strong></p>
+            <span data-toggle="counter-up"
+              th:inline="text">[[${#numbers.formatInteger(indexModel.subregionWithHighestFatalityRate.case_fatality_ratio,3,'COMMA')}]]</span><span>%</span>
+            <p th:inline="text">Highest Fatality Ratio:
+              <strong>[[${indexModel.subregionWithHighestFatalityRate.name}]]</strong>
+            </p>
           </div>
 
         </div>
@@ -229,32 +272,44 @@
         <div class="row counters" style="padding-top: 50px;">
 
           <div class="col-md-6 col-xl-3 col-12 text-center">
-            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(indexModel.subregionWithLeastDeaths.deaths,3,'COMMA')}]]</span>
+            <span data-toggle="counter-up"
+              th:inline="text">[[${#numbers.formatInteger(indexModel.subregionWithLeastDeaths.deaths,3,'COMMA')}]]</span>
             <p th:inline="text">Least Deaths: <strong>[[${indexModel.subregionWithLeastDeaths.name}]]</strong></p>
           </div>
 
           <div class="col-md-6 col-xl-3 col-12 text-center">
-            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(indexModel.subregionWithLowestConfirmedCases.confirmed,3,'COMMA')}]]</span>
-            <p th:inline="text">Least Confirmed Cases: <strong>[[${indexModel.subregionWithLowestConfirmedCases.name}]]</strong></p>
+            <span data-toggle="counter-up"
+              th:inline="text">[[${#numbers.formatInteger(indexModel.subregionWithLowestConfirmedCases.confirmed,3,'COMMA')}]]</span>
+            <p th:inline="text">Least Confirmed Cases:
+              <strong>[[${indexModel.subregionWithLowestConfirmedCases.name}]]</strong>
+            </p>
           </div>
 
           <div class="col-md-6 col-xl-3 col-12 text-center">
-            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(indexModel.subregionWithLeastRecovered.recovered,3,'COMMA')}]]</span>
-            <p th:inline="text">Least Recovered Cases: <strong>[[${indexModel.regionWithLeastRecovered.name}]]</strong></p>
+            <span data-toggle="counter-up"
+              th:inline="text">[[${#numbers.formatInteger(indexModel.subregionWithLeastRecovered.recovered,3,'COMMA')}]]</span>
+            <p th:inline="text">Least Recovered Cases: <strong>[[${indexModel.regionWithLeastRecovered.name}]]</strong>
+            </p>
           </div>
 
           <div class="col-md-6 col-xl-3 col-12 text-center">
-            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(indexModel.subregionWithLowestIncidentRate.incident_rate,3,'COMMA')}]]</span>
-            <p th:inline="text">Lowest Incident Rate: <strong>[[${indexModel.subregionWithLowestIncidentRate.name}]]</strong></p>
+            <span data-toggle="counter-up"
+              th:inline="text">[[${#numbers.formatInteger(indexModel.subregionWithLowestIncidentRate.incident_rate,3,'COMMA')}]]</span>
+            <p th:inline="text">Lowest Incident Rate:
+              <strong>[[${indexModel.subregionWithLowestIncidentRate.name}]]</strong>
+            </p>
           </div>
-    
+
           <div class="col-12 text-center">
-            <span data-toggle="counter-up" th:inline="text">[[${#numbers.formatInteger(indexModel.subregionWithLowestFatalityRate.case_fatality_ratio,3,'COMMA')}]]</span><span>%</span>
-            <p th:inline="text">Lowest Fatality Ratio: <strong>[[${indexModel.subregionWithLowestFatalityRate.name}]]</strong></p>
+            <span data-toggle="counter-up"
+              th:inline="text">[[${#numbers.formatInteger(indexModel.subregionWithLowestFatalityRate.case_fatality_ratio,3,'COMMA')}]]</span><span>%</span>
+            <p th:inline="text">Lowest Fatality Ratio:
+              <strong>[[${indexModel.subregionWithLowestFatalityRate.name}]]</strong>
+            </p>
           </div>
 
         </div>
-  
+
       </div>
     </section><!-- End Region Section -->
   </main><!-- End #main -->
@@ -269,16 +324,22 @@
           <div class="col-md-6 col-12 footer-contact">
             <h3>COVID-19</h3>
             <p>
-              A Bruno Piqué Project that uses Java 11, Spring, Hibernate, MySql, HTML, CSS, Thymeleaf, Swagger and JavaScript. <br><br>
-              <strong>Repository:</strong> <a href="https://github.com/brunopique/covidRealTime" style="color: white;">covidRealTime</a><br>
+              A Bruno Piqué Project that uses Java 11, Spring, Hibernate, MySql, HTML, CSS, Thymeleaf, Swagger,
+              JavaScript and is deployed on Heroku. <br><br>
+              <strong>Repository:</strong> <a href="https://github.com/brunopique/covidRealTime"
+                style="color: white;">covidRealTime</a><br>
               <strong>Contact:</strong> hi@brunopique.dev<br>
             </p>
           </div>
 
           <div class="col-md-6 col-12 footer-newsletter">
             <h4>About</h4>
-            <p>This web application automatically downloads a .csv file from the <a href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data" style="color: white; font-weight: bold;">JHU CSSE COVID-19 Dataset</a> with daily covid data (confirmed cases, deaths, recovered, etc.), parses them using Java and saves it to MySql with Hibernate.</p>
-            <p>The data is then queried using both Spring Data JPA and native SQL queries, added to a model on the back end and displayed using Thymeleaf in the front end.</p>
+            <p>This web application automatically downloads a .csv file from the <a
+                href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data"
+                style="color: white; font-weight: bold;">JHU CSSE COVID-19 Dataset</a> with daily covid data (confirmed
+              cases, deaths, recovered, etc.), parses them using Java and saves it to MySql with Hibernate.</p>
+            <p>The data is then queried using both Spring Data JPA and native SQL queries, added to a model on the back
+              end and displayed using Thymeleaf in the front end.</p>
             <p>Finally, with Swagger we can use the full range of API queries.</p>
           </div>
 
@@ -291,7 +352,7 @@
       <div class="copyright-wrap d-md-flex py-4">
         <div class="mr-md-auto text-center text-md-left">
           <div class="copyright">
-            &copy; Copyright <strong><span>Bruno Piqué</span></strong>. All Rights Reserved
+            &copy; Copyright <strong>Bruno Piqué</strong> 2021. All Rights Reserved
           </div>
           <div class="credits">
             Design by <a href="https://bootstrapmade.com/">BootstrapMade</a>
@@ -312,12 +373,17 @@
 
   <!-- Vendor JS Files -->
   <script src="../static/vendor/jquery/jquery.min.js" th:src="@{/vendor/jquery/jquery.min.js}"></script>
-  <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js" th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-  <script src="../static/vendor/jquery.easing/jquery.easing.min.js" th:src="@{/vendor/jquery.easing/jquery.easing.min.js}"></script>
-  <script src="../static/vendor/waypoints/jquery.waypoints.min.js" th:src="@{/vendor/waypoints/jquery.waypoints.min.js}"></script>
+  <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"
+    th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <script src="../static/vendor/jquery.easing/jquery.easing.min.js"
+    th:src="@{/vendor/jquery.easing/jquery.easing.min.js}"></script>
+  <script src="../static/vendor/waypoints/jquery.waypoints.min.js"
+    th:src="@{/vendor/waypoints/jquery.waypoints.min.js}"></script>
   <script src="../static/vendor/counterup/counterup.min.js" th:src="@{/vendor/counterup/counterup.min.js}"></script>
-  <script src="../static/vendor/owl.carousel/owl.carousel.min.js" th:src="@{/vendor/owl.carousel/owl.carousel.min.js}"></script>
-  <script src="../static/vendor/isotope-layout/isotope.pkgd.min.js" th:src="@{/vendor/isotope-layout/isotope.pkgd.min.js}"></script>
+  <script src="../static/vendor/owl.carousel/owl.carousel.min.js"
+    th:src="@{/vendor/owl.carousel/owl.carousel.min.js}"></script>
+  <script src="../static/vendor/isotope-layout/isotope.pkgd.min.js"
+    th:src="@{/vendor/isotope-layout/isotope.pkgd.min.js}"></script>
   <script src="../static/vendor/venobox/venobox.min.js" th:src="@{/vendor/venobox/venobox.min.js}"></script>
   <script src="../static/vendor/aos/aos.js" th:src="@{/vendor/aos/aos.js}"></script>
 
