@@ -30,7 +30,7 @@ public class SpringFoxConfig {
                         "http://brunopique.dev",
                         "hi@brunopique.dev"),
                 "Open Source",
-                "http://brunopique.dev/covid",
+                "https://brunopique.dev/#portfolio-modal-5",
                 new ArrayList<>());
 
         return new Docket(DocumentationType.SWAGGER_2)

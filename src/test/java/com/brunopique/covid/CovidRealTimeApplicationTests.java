@@ -68,13 +68,6 @@ class CovidRealTimeApplicationTests {
         System.out.println("Region from subregion search 'California' and 'US': " + subregionService.findByNameAndRegion_Name("California", "Us").get());
     }
 
-//    @Test
-//    void should_return_subregion_with_covid_data() {
-//        Subregion subregion = subregionService.findByCovidDataId().orElse(new Subregion());
-//        System.out.println("subregion = " + subregion);
-//        System.out.println("subregion.getDailyCovidData() = " + subregion.getDailyCovidData());
-//    }
-
     @Test
     void should_return_covid_data_from_region_search() {
         Map<String, String> region = regionService.findWithMostDeaths();
