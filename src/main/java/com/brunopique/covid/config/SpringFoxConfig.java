@@ -22,7 +22,7 @@ public class SpringFoxConfig {
     @Bean
     public Docket api() {
 
-        ApiInfo apiInfo = new ApiInfo("COVID-19 DATA API",
+        var apiInfo = new ApiInfo("COVID-19 DATA API",
                 "Swagger implementation for the `com.brunopique.covid` web application.",
                 "1.1",
                 "",

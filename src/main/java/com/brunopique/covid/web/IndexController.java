@@ -22,7 +22,7 @@ public class IndexController {
     @GetMapping("/")
     public String getCovidData(ModelMap model) {
 
-        IndexModel indexModel = new IndexModel();
+        final var indexModel = new IndexModel();
 
         // Worldwide
         indexModel.setWorldwideDeaths(covidDataService.getWorldwideDeaths());
@@ -54,6 +54,9 @@ public class IndexController {
         indexModel.setSubregionWithLowestIncidentRate(subregionService.findWithLowestIncidentRate());
         indexModel.setSubregionWithHighestFatalityRate(subregionService.findWithHighestFatalityRate());
         indexModel.setSubregionWithLowestFatalityRate(subregionService.findWithLowestFatalityRate());
+
+        System.out.println("indexModel.getSubregionWithLowestFatalityRate() = " + indexModel.getSubregionWithLowestFatalityRate());
+        System.out.println("indexModel.getSubregionWithLowestFatalityRate() = " + indexModel.getRegionWithLowestFatalityRate());
 
         model.put("indexModel", indexModel);
 

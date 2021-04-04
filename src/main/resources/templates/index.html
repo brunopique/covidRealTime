@@ -207,7 +207,7 @@
 
           <div class="col-12 text-center">
             <span data-toggle="counter-up"
-              th:inline="text">[[${#numbers.formatInteger(indexModel.regionWithLowestFatalityRate.case_fatality_ratio,3,'COMMA')}]]</span><span>%</span>
+              th:inline="text">[[${#numbers.formatDecimal(indexModel.regionWithLowestFatalityRate.case_fatality_ratio, 0, 'COMMA', 2, 'POINT')}]]</span><span>%</span>
             <p th:inline="text">Lowest Fatality Ratio:
               <strong>[[${indexModel.regionWithLowestFatalityRate.name}]]</strong>
             </p>
@@ -302,7 +302,7 @@
 
           <div class="col-12 text-center">
             <span data-toggle="counter-up"
-              th:inline="text">[[${#numbers.formatInteger(indexModel.subregionWithLowestFatalityRate.case_fatality_ratio,3,'COMMA')}]]</span><span>%</span>
+              th:inline="text">[[${#numbers.formatDecimal(indexModel.subregionWithLowestFatalityRate.case_fatality_ratio, 0, 'COMMA', 2, 'POINT')}]]</span><span>%</span>
             <p th:inline="text">Lowest Fatality Ratio:
               <strong>[[${indexModel.subregionWithLowestFatalityRate.name}]]</strong>
             </p>

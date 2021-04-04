@@ -1,9 +1,13 @@
 package com.brunopique.covid;
 
+import com.brunopique.covid.config.CovidDataServiceConfig;
 import com.brunopique.covid.service.CovidDataService;
 import com.brunopique.covid.service.RegionService;
 import com.brunopique.covid.service.SubregionService;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -20,6 +24,10 @@ class CovidRealTimeApplicationTests {
     private CovidDataService covidDataService;
     @Autowired
     private SubregionService subregionService;
+    @Autowired
+    private CovidDataServiceConfig covidDataServiceConfig;
+
+    private final static Logger logger = LoggerFactory.getLogger(CovidRealTimeApplicationTests.class);
 
     @Test
     void should_print_todays_date_in_csv_file_format() {
@@ -117,6 +125,23 @@ class CovidRealTimeApplicationTests {
     @Test
     void should_return_covid_data_object_by_number_of_deaths() {
         System.out.println("covidDataService.covidDataService.findAllByDeathsIsGreaterThanEqual(100000L) = " + covidDataService.findAllByDeathsIsGreaterThanEqualAndDateGreaterThanEqual(50000L));
+    }
+
+    @Test
+    void should_download_and_parse_todays_data() {
+        Assert.assertTrue(covidDataService.parseData());
+    }
+
+    @Test
+    void should_return_logger_output() {
+        logger.info("An INFO Message");
+        logger.warn("A WARN Message");
+        logger.error("An ERROR Message");
+    }
+
+    @Test
+    void should_log_parsing_data_result() {
+        covidDataServiceConfig.parseData();
     }
 
 }

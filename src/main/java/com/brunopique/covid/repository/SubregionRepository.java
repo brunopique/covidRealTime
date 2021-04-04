@@ -81,7 +81,7 @@ public interface SubregionRepository extends JpaRepository<Subregion, Long> {
 
     @Query(value = "SELECT sr.name, ROUND(SUM(cd.incident_rate) / COUNT(cd.id), 2) as incident_rate FROM subregion sr " +
             "JOIN covid_data cd on sr.id = cd.subregion_id " +
-            "WHERE cd.date = CURDATE() - INTERVAL 1 DAY AND incident_rate > 1 " +
+            "WHERE cd.date = CURDATE() - INTERVAL 1 DAY AND incident_rate > 0.5 " +
             "GROUP BY sr.id " +
             "ORDER BY incident_rate LIMIT 1",
             nativeQuery = true)
@@ -97,7 +97,7 @@ public interface SubregionRepository extends JpaRepository<Subregion, Long> {
 
     @Query(value = "SELECT sr.name, ROUND(SUM(cd.case_fatality_ratio) / COUNT(cd.id), 2) as case_fatality_ratio FROM subregion sr " +
             "JOIN covid_data cd on sr.id = cd.subregion_id " +
-            "WHERE cd.date = CURDATE() - INTERVAL 1 DAY AND case_fatality_ratio > 1 " +
+            "WHERE cd.date = CURDATE() - INTERVAL 1 DAY AND case_fatality_ratio > 0.1 " +
             "GROUP BY sr.id " +
             "ORDER BY case_fatality_ratio LIMIT 1",
             nativeQuery = true)

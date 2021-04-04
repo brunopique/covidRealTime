@@ -36,8 +36,6 @@ public class CovidDataService {
      * @return {@code true} if able to create new {@link com.brunopique.covid.domain.CovidData} object
      * and save to the database, {@code false} otherwise.
      */
-    // If the server were constantly running, this method would not be called on
-    // 'ApplicationReadyEvent' but on a scheduled time (using '@EnableScheduling')
     public boolean parseData() {
 
         // If date already exists in repo return false and don't parse
@@ -57,19 +55,19 @@ public class CovidDataService {
             Iterable<CSVRecord> records = CSVFormat.DEFAULT.withHeader().parse(in);
             for (CSVRecord record : records) {
                 csvRecord = record;
-                String regionName = record.get("Country_Region");
+                final String regionName = record.get("Country_Region");
                 String subregionName = record.get("Province_State");
                 if (subregionName.isEmpty() || subregionName.equals("Unknown"))
                     subregionName = "Region in " + regionName;
-                String combinedNames = record.get("Combined_Key").isEmpty() ? regionName : record.get("Combined_Key");
-                long confirmed = Long.parseLong(getRecordValueOrElseZero("Confirmed"));
-                long deaths = Long.parseLong(getRecordValueOrElseZero("Deaths"));
-                double recovered = Double.parseDouble(getRecordValueOrElseZero("Recovered"));
-                long active = Long.parseLong(getRecordValueOrElseZero("Active"));
-                double incidentRate = Double.parseDouble(getRecordValueOrElseZero("Incident_Rate"));
-                double caseFatalityRatio = Double.parseDouble(getRecordValueOrElseZero("Case_Fatality_Ratio"));
+                final String combinedNames = record.get("Combined_Key").isEmpty() ? regionName : record.get("Combined_Key");
+                final long confirmed = Long.parseLong(getRecordValueOrElseZero("Confirmed"));
+                final long deaths = Long.parseLong(getRecordValueOrElseZero("Deaths"));
+                final double recovered = Double.parseDouble(getRecordValueOrElseZero("Recovered"));
+                final long active = Long.parseLong(getRecordValueOrElseZero("Active"));
+                final double incidentRate = Double.parseDouble(getRecordValueOrElseZero("Incident_Rate"));
+                final double caseFatalityRatio = Double.parseDouble(getRecordValueOrElseZero("Case_Fatality_Ratio"));
                 // Instantiate current record
-                CovidData currentRecord = new CovidData(LocalDate.now().minusDays(1), combinedNames, confirmed, deaths, recovered, active, incidentRate, caseFatalityRatio);
+                var currentRecord = new CovidData(LocalDate.now().minusDays(1), combinedNames, confirmed, deaths, recovered, active, incidentRate, caseFatalityRatio);
                 // If region exists get it from repo, otherwise create it and save it
                 region = regionService.findByName(regionName).orElseGet(() -> {
                     Region newRegion = new Region(regionName);
@@ -109,7 +107,7 @@ public class CovidDataService {
     }
 
     private String getRecordValueOrElseZero(String header) {
-        String record = csvRecord.get(header);
+        final String record = csvRecord.get(header);
         return record.isEmpty() ? "0" : record;
     }
 
